@@ -1,0 +1,30 @@
+.carousel-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 86px;
+  height: 86px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: var(--color-white);
+  color: var(--color-primary);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  transition: box-shadow 0.2s;
+}
+
+.carousel-arrow svg {
+  width: 24px;
+  height: 24px;
+}
+
+.carousel-arrow:hover {
+  box-shadow: 0 6px 28px rgba(0, 0, 0, 0.16);
+}
+
+@media (max-width: 1300px) {
+  .carousel-arrow {
+    width: 52px;
+    height: 52px;
+  }
+}

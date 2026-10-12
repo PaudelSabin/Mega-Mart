@@ -1,0 +1,104 @@
+.brand-banner {
+  position: relative;
+  height: 207px;
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 0 24px 30px -18px rgba(0, 0, 0, 0.2);
+}
+
+.brand-banner__circle {
+  position: absolute;
+  top: 12px;
+  left: 203px;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.brand-banner__text {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 20px;
+}
+
+.brand-banner__tag {
+  display: inline-block;
+  padding: 9px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  line-height: 17px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.brand-banner__logo {
+  max-width: 120px;
+  height: auto;
+}
+
+.brand-banner__offer {
+  font-size: 20px;
+  line-height: 30px;
+  font-weight: 700;
+}
+
+.brand-banner__image {
+  position: absolute;
+  top: 50%;
+  left: 293px;
+  z-index: 1;
+  width: auto;
+  max-width: none;
+  transform: translate(-50%, -50%);
+}
+
+/* Themes */
+.brand-banner--dark {
+  background: #333333;
+  color: var(--color-white);
+}
+
+.brand-banner--dark .brand-banner__tag {
+  background: #4a4a4a;
+  color: #d4d4d4;
+}
+
+.brand-banner--yellow {
+  background: #fff3bf;
+  color: var(--color-dark);
+}
+
+.brand-banner--yellow .brand-banner__tag {
+  background: #f3e39a;
+  color: #6b5e1e;
+}
+
+.brand-banner--peach {
+  background: #ffe0d1;
+  color: var(--color-dark);
+}
+
+.brand-banner--peach .brand-banner__tag {
+  background: #ffc9af;
+  color: #8a4a33;
+}
+
+/* Small screens: phone moves to the right edge, smaller, so it never covers the text */
+@media (max-width: 700px) {
+  .brand-banner__circle {
+    display: none;
+  }
+
+  .brand-banner__image {
+    left: auto;
+    right: -10px;
+    height: 150px !important;
+    transform: translateY(-50%);
+  }
+}

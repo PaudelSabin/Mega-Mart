@@ -27,3 +27,21 @@
   height: 18px;
   background: var(--color-divider);
 }
+
+/* Tablet: tighter spacing */
+@media (max-width: 900px) {
+  .topbar__items {
+    gap: 10px;
+  }
+}
+
+/* Mobile: only the welcome text */
+@media (max-width: 700px) {
+  .topbar__items {
+    display: none;
+  }
+
+  .topbar__inner {
+    justify-content: center;
+  }
+}

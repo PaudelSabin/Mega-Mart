@@ -1,0 +1,23 @@
+.category-nav {
+  padding: 16px 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.category-nav__list {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.category-nav__list::-webkit-scrollbar {
+  display: none;
+}
+
+/* When the pills no longer fit, let them scroll sideways from the left */
+@media (max-width: 1250px) {
+  .category-nav__list {
+    justify-content: flex-start;
+  }
+}

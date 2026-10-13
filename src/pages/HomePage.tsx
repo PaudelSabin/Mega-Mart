@@ -110,8 +110,20 @@ function HomePage() {
         {/* ===== Smartphones: 5 ProductCards =====
             Same component, five different sets of props.
               selected    -> the blue outlined card (it is "hovered" in Figma)
-              imageHeight -> tunes the picture size, because each phone picture
-                             has a different amount of empty space around it */}
+              imageHeight -> how tall the whole PICTURE FILE is drawn.
+
+            WHY THE NUMBERS DIFFER: every phone picture has a different amount
+            of transparent empty space around the phone. We want the PHONE
+            ITSELF to be about 150px tall inside the 188px grey area, which
+            leaves roughly 19px of padding above and below (like in Figma).
+            Formula:   imageHeight = 150 x 720 / (phone height inside the file)
+              S22 Ultra (teal):   150 x 720 / 581 = 186
+              Galaxy M13:         150 x 720 / 591 = 183
+              Galaxy M33:         150 x 720 / 546 = 198
+              Galaxy M53:         150 x 720 / 554 = 195
+              S22 Ultra (green):  150 x 720 / 470 = 230
+            (720 is the height of every picture file, in pixels.)
+            To get MORE padding, lower all five numbers; for LESS, raise them. */}
         <section className="section container">
           <SectionHeader title="Grab the best deal on" highlight="Smartphones" />
           <div className="section__content products-grid">
@@ -122,7 +134,7 @@ function HomePage() {
               savings="Save - ₹32999"
               discount="56%"
               image={galaxyS22Ultra}
-              imageHeight={197}
+              imageHeight={186}
             />
             <ProductCard
               name="Galaxy M13 (4GB | 64 GB )"
@@ -131,7 +143,7 @@ function HomePage() {
               savings="Save - ₹4500"
               discount="56%"
               image={galaxyM13}
-              imageHeight={211}
+              imageHeight={183}
               selected
             />
             <ProductCard
@@ -141,7 +153,7 @@ function HomePage() {
               savings="Save - ₹8000"
               discount="56%"
               image={galaxyM33}
-              imageHeight={246}
+              imageHeight={198}
             />
             <ProductCard
               name="Galaxy M53 (4GB | 64 GB )"
@@ -150,7 +162,7 @@ function HomePage() {
               savings="Save - ₹9000"
               discount="56%"
               image={galaxyM53}
-              imageHeight={242}
+              imageHeight={195}
             />
             <ProductCard
               name="Galaxy S22 Ultra"
@@ -159,7 +171,7 @@ function HomePage() {
               savings="Save - ₹18000"
               discount="56%"
               image={galaxyS22UltraGreen}
-              imageHeight={321}
+              imageHeight={230}
             />
           </div>
         </section>

@@ -26,48 +26,68 @@
   background: #212844; /* navy colour picked from the Figma screenshot */
 }
 
-/* The two semicircle pictures from Figma.
-   Their size is NOT set here on purpose: each picture is already the exact
-   size of the shape in Figma (the part that is visible inside the banner),
-   so we only place them. */
+/* =============================================================================
+   THE FOUR SHAPES BEHIND THE WATCH
+   There are two pairs, and each pair is "a thin outline ring + a filled shape":
 
-/* Filled half-circle: 467 x 159, starts 734px from the left, touches the top edge */
+        TOP PAIR (pictures)                 BOTTOM PAIR (drawn with CSS)
+        hangs from the top edge             rises from the bottom edge
+        hero_circle_line.png  = ring        177px circle outline  = ring
+        hero_circle.png       = fill        148px circle filled   = fill
+
+   Colours (taken from the Figma pictures / screenshot):
+        banner  #212844     filled shape  #2C3454     ring line  #3C466B
+
+   All four are anchored to the RIGHT edge of the banner (not the left), so
+   they stay behind the watch even when the window is narrower than 1200px.
+   ============================================================================= */
+
+/* ----- TOP PAIR: the two pictures you exported from Figma -----
+   Their size is NOT set here on purpose: each picture already has the exact
+   size of the shape in Figma (the part visible inside the banner), so we only
+   place it. At the full 1200px width they start at x = 734 and x = 716. */
+
+/* Filled half-circle: 467 x 159, touches the top edge */
 .hero__circle-fill {
   position: absolute;
   top: 0;
-  left: 734px;
+  right: -1px; /* 734 + 467 = 1201, so it ends 1px past the right edge */
   max-width: none; /* index.css limits images to 100% width: switch that off */
 }
 
-/* Thin outline ring: 485 x 177, starts 716px from the left, touches the top edge */
+/* Thin outline ring: 485 x 177, touches the top edge */
 .hero__circle-line {
   position: absolute;
   top: 0;
-  left: 716px;
+  right: -1px; /* 716 + 485 = 1201 */
   max-width: none;
 }
 
-/* Two small faint circles at the bottom (Figma: 177px at x=791 and 148px at x=805).
-   Only their top curve is visible, because the banner cuts off the rest. */
+/* ----- BOTTOM PAIR: drawn with CSS -----
+   Only their top curve is visible, because the banner cuts off the rest.
+   Both circles are centred on the same point (x = 879 from the left edge). */
 .hero__bubble {
   position: absolute;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
+/* Ring: 177px circle, outline only. There is NO fill, so the banner colour
+   shows between the ring and the filled circle (exactly like the design). */
 .hero__bubble--large {
   width: 177px;
   height: 177px;
-  left: 791px;
   top: 238px;
+  right: 232px; /* 1200 - (791 + 177) */
+  border: 1px solid #3c466b;
 }
 
+/* Filled shape: 148px circle, same colour as hero_circle.png */
 .hero__bubble--small {
   width: 148px;
   height: 148px;
-  left: 805px;
   top: 253px;
+  right: 247px; /* 1200 - (805 + 148) */
+  background: #2c3454;
 }
 
 /* ---------- Layer 2: arrow buttons ---------- */

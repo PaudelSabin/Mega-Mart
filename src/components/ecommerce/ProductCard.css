@@ -29,6 +29,7 @@
 
 .product-card__image {
   flex-shrink: 0;
+  height: var(--image-height); /* set by ProductCard.tsx for each card */
   width: auto;
   max-width: none;
   object-fit: contain;
@@ -96,10 +97,10 @@
   color: var(--color-green);
 }
 
-/* ---------- Mobile: 2 cards per row, so draw the phone smaller.
-   !important is needed because the real height is set inline by the component. */
+/* ---------- Mobile: 2 cards per row, so every phone is drawn 18% smaller.
+   calc() keeps the differences between the five pictures intact. ---------- */
 @media (max-width: 700px) {
   .product-card__image {
-    height: 170px !important;
+    height: calc(var(--image-height) * 0.82);
   }
 }

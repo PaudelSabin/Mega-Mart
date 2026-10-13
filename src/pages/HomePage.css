@@ -1,36 +1,48 @@
-/* Vertical rhythm: 120px between sections, 40px between a header and its content */
+/* =========================================================
+   HomePage layout: spacing between sections and the grids
+   ========================================================= */
+
+/* Every section sits 120px below the previous one (Figma) */
 .section {
   margin-top: 120px;
 }
 
+/* Cards start 40px below the section's title line (Figma). The 1px line itself
+   is part of the SectionHeader, so the gap here is 39px. */
 .section__content {
-  margin-top: 40px;
+  margin-top: 39px;
 }
 
+/* Smartphones: 5 equal columns, 16px gaps.
+   minmax(0, 1fr) lets the columns shrink below their content size, which
+   stops an oversized image from stretching the page sideways. */
 .products-grid {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 16px;
 }
 
+/* Top Categories: 7 circles spread evenly across the row (132px each) */
 .categories-grid {
   display: flex;
   justify-content: space-between;
 }
 
+/* Brand banners: 3 equal columns, 16px gaps */
 .brands-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 16px;
 }
 
+/* Dots under the brand banners, 30px below them, centred */
 .brands-dots {
   display: flex;
   justify-content: center;
   margin-top: 30px;
 }
 
-/* The dots sit on a white page here, so use the blue/grey version */
+/* The dots sit on a white page here, so use grey + blue instead of white */
 .brands-dots .dot-indicator__dot {
   background: var(--color-divider);
 }
@@ -39,18 +51,21 @@
   background: var(--color-primary);
 }
 
+/* Daily Essentials: 6 equal columns, 16px gaps */
 .essentials-grid {
   display: grid;
   grid-template-columns: repeat(6, minmax(0, 1fr));
   gap: 16px;
 }
 
-/* The page ends with a 120px gap before the footer */
+/* 120px of space between the last section and the footer (Figma) */
 main {
   padding-bottom: 120px;
 }
 
-/* ---------- Tablet ---------- */
+/* =========================================================
+   Tablet (up to 1100px wide): fewer columns, smaller gaps
+   ========================================================= */
 @media (max-width: 1100px) {
   .section {
     margin-top: 80px;
@@ -81,7 +96,9 @@ main {
   }
 }
 
-/* ---------- Mobile ---------- */
+/* =========================================================
+   Mobile (up to 700px wide)
+   ========================================================= */
 @media (max-width: 700px) {
   .section {
     margin-top: 56px;

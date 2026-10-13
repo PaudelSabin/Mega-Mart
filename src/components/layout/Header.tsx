@@ -1,3 +1,15 @@
+/**
+ * Header  (layout component)
+ * --------------------------
+ * The white bar under the top strip. Left to right:
+ *   [menu button] [logo]      [SearchBar]      [Sign Up/Sign In | Cart]
+ *
+ * Props (decided by the page, not by this component):
+ *  - logo:              image path of the MegaMart logo
+ *  - searchPlaceholder: grey hint text inside the search box
+ *
+ * It re-uses the SearchBar component from components/common.
+ */
 import SearchBar from "../common/SearchBar";
 import "./Header.css";
 
@@ -10,6 +22,7 @@ function Header({ logo, searchPlaceholder }: HeaderProps) {
   return (
     <header className="header">
       <div className="container header__inner">
+        {/* ----- Left: menu button + logo ----- */}
         <div className="header__brand">
           <button className="header__menu" type="button" aria-label="Open menu">
             <svg
@@ -27,10 +40,12 @@ function Header({ logo, searchPlaceholder }: HeaderProps) {
           <img className="header__logo" src={logo} alt="MegaMart" />
         </div>
 
+        {/* ----- Middle: reusable search bar ----- */}
         <div className="header__search">
           <SearchBar placeholder={searchPlaceholder} />
         </div>
 
+        {/* ----- Right: sign in + cart ----- */}
         <div className="header__actions">
           <button className="header__action" type="button">
             <svg

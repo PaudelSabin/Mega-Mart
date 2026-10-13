@@ -1,3 +1,28 @@
+/**
+ * HomePage  (page component)
+ * ==========================
+ * The one and only page of the site. It does NOT draw anything itself: it puts
+ * the reusable components in the right order and gives each one its content
+ * through PROPS.
+ *
+ *   Order on the page (top to bottom):
+ *     TopBar -> Header -> CategoryNav -> HeroBanner
+ *     -> Smartphones -> Top Categories -> Electronics Brands -> Daily Essentials
+ *     -> Footer
+ *
+ * RULES OF THE TASK that you can see in this file
+ *   1. Every card is written out BY HAND with its own props. There is no
+ *      .map() and no data array, so you can see exactly how ONE component is
+ *      reused many times with different content.
+ *   2. Images are imported ONCE from "../assets" and handed down as props.
+ *      The components themselves never decide which picture they show.
+ *
+ * HOW PROPS FLOW
+ *     HomePage  --props-->  ProductCard  -->  the card you see on screen
+ *   (the parent decides the content, the child only presents it)
+ */
+
+// ----- Components ----------------------------------------------------------
 import TopBar from "../components/layout/TopBar";
 import Header from "../components/layout/Header";
 import CategoryNav from "../components/layout/CategoryNav";
@@ -9,18 +34,26 @@ import BrandBanner from "../components/ecommerce/BrandBanner";
 import EssentialCard from "../components/ecommerce/EssentialCard";
 import SectionHeader from "../components/common/SectionHeader";
 import DotIndicator from "../components/common/DotIndicator";
+
+// ----- Images (all exported from src/assets/index.ts) -----------------------
 import {
+  // logos
   logoBlue,
   logoWhite,
   logoApple,
   logoRealme,
   logoMi,
+  // hero banner
   heroWatch,
+  heroCircle,
+  heroCircleLine,
+  // smartphones
   galaxyS22Ultra,
   galaxyM13,
   galaxyM33,
   galaxyM53,
   galaxyS22UltraGreen,
+  // top categories
   catMobile,
   catCosmetics,
   catElectronics,
@@ -28,23 +61,33 @@ import {
   catWatches,
   catDecor,
   catAccessories,
+  // brand banners: phone pictures + circle pictures
   brandIphone,
   brandRealme,
   brandXiaomi,
+  appleCircle,
+  realmeCircle,
+  miCircle,
+  // daily essentials
   essEssential,
   essVegetables,
   essFruits,
   essStrawberry,
   essMango,
   essCherry,
+  // footer badges
   storeApple,
   storeGoogle,
 } from "../assets";
+
+// The spacing between sections and the grids live in HomePage.css
 import "./HomePage.css";
 
 function HomePage() {
   return (
+    // <> ... </> is a "fragment": it groups elements without adding an extra <div>
     <>
+      {/* ===== Page top: grey strip, white header, category pills ===== */}
       <TopBar welcomeText="Welcome to worldwide Megamart!" />
       <Header
         logo={logoBlue}
@@ -53,14 +96,22 @@ function HomePage() {
       <CategoryNav />
 
       <main>
+        {/* ===== Hero banner =====
+            The text, the watch and BOTH circle pictures come in as props. */}
         <HeroBanner
           subtitle="Best Deal Online on smart watches"
           title="SMART WEARABLE."
           offer="UP to 80% OFF"
           image={heroWatch}
+          circleFill={heroCircle}
+          circleLine={heroCircleLine}
         />
 
-        {/* ---------- Smartphones ---------- */}
+        {/* ===== Smartphones: 5 ProductCards =====
+            Same component, five different sets of props.
+              selected    -> the blue outlined card (it is "hovered" in Figma)
+              imageHeight -> tunes the picture size, because each phone picture
+                             has a different amount of empty space around it */}
         <section className="section container">
           <SectionHeader title="Grab the best deal on" highlight="Smartphones" />
           <div className="section__content products-grid">
@@ -113,7 +164,10 @@ function HomePage() {
           </div>
         </section>
 
-        {/* ---------- Top Categories ---------- */}
+        {/* ===== Top Categories: 7 CategoryCards =====
+            imageSize is only set for cut-out pictures (mobile, electronics,
+            watches). The square photos fill the whole circle by default.
+            "selected" = the blue outlined circle. */}
         <section className="section container">
           <SectionHeader title="Shop From" highlight="Top Categories" />
           <div className="section__content categories-grid">
@@ -127,7 +181,9 @@ function HomePage() {
           </div>
         </section>
 
-        {/* ---------- Top Electronics Brands ---------- */}
+        {/* ===== Top Electronics Brands: 3 BrandBanners =====
+            theme  -> picks the card colours ("dark", "yellow", "peach")
+            circle -> the circle picture drawn in the top-right corner */}
         <section className="section container">
           <SectionHeader title="Top" highlight="Electronics Brands" />
           <div className="section__content brands-grid">
@@ -135,6 +191,7 @@ function HomePage() {
               brand="iPhone"
               logo={logoApple}
               image={brandIphone}
+              circle={appleCircle}
               offerText="UP to 80% OFF"
               theme="dark"
               imageHeight={278}
@@ -143,6 +200,7 @@ function HomePage() {
               brand="Realme"
               logo={logoRealme}
               image={brandRealme}
+              circle={realmeCircle}
               offerText="UP to 80% OFF"
               theme="yellow"
               imageHeight={197}
@@ -151,17 +209,21 @@ function HomePage() {
               brand="Xiaomi"
               logo={logoMi}
               image={brandXiaomi}
+              circle={miCircle}
               offerText="UP to 80% OFF"
               theme="peach"
               imageHeight={228}
             />
           </div>
+
+          {/* The 7 slider dots under the banners (first one active) */}
           <div className="brands-dots">
             <DotIndicator activeIndex={0} />
           </div>
         </section>
 
-        {/* ---------- Daily Essentials ---------- */}
+        {/* ===== Daily Essentials: 6 EssentialCards =====
+            imageWidth sets how wide each picture is drawn inside its tile. */}
         <section className="section container">
           <SectionHeader title="Daily" highlight="Essentials" />
           <div className="section__content essentials-grid">
@@ -206,6 +268,7 @@ function HomePage() {
         </section>
       </main>
 
+      {/* ===== Footer: white logo + the two app-store badges come in as props ===== */}
       <Footer
         logo={logoWhite}
         appStoreBadge={storeApple}

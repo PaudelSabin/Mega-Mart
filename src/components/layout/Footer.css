@@ -1,11 +1,12 @@
+/* Footer: full-width brand-blue block, 592px tall in Figma */
 .footer {
   position: relative;
-  overflow: hidden;
+  overflow: hidden;              /* clips the decorative circles */
   background: var(--color-primary);
   color: var(--color-white);
 }
 
-/* Decorative circles, bottom-right of the footer */
+/* Decorative circles (anchored to the right so they follow the screen edge) */
 .footer__circle {
   position: absolute;
   border-radius: 50%;
@@ -27,9 +28,10 @@
 }
 
 .footer__inner {
-  position: relative;
+  position: relative;            /* sits above the circles */
 }
 
+/* Three columns: 468px | 299px | the rest (Figma x = 120, 588, 887) */
 .footer__top {
   display: grid;
   grid-template-columns: 468px 299px 1fr;
@@ -38,21 +40,22 @@
 }
 
 .footer__logo {
-  height: 44px;
+  height: 44px;                  /* Figma logo: 217 x 44 */
   width: auto;
 }
 
+/* "Contact Us" / "Download App" headings: 20px (Figma: 'Contact Us' = 99px) */
 .footer__heading {
   margin-top: 34px;
-  font-size: 18px;
+  font-size: 20px;
   line-height: 20px;
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .footer__contacts {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 20px;                     /* between WhatsApp and Call Us */
   margin-top: 20px;
 }
 
@@ -60,6 +63,7 @@
   margin-top: 30px;
 }
 
+/* App Store (167x55) and Google Play (191x56) badges, 20px apart */
 .footer__badges {
   display: flex;
   flex-wrap: wrap;
@@ -67,15 +71,17 @@
   margin-top: 20px;
 }
 
+/* Copyright strip: a thin white line, then centred text */
 .footer__bottom {
   padding: 30px 0 29px;
   border-top: 1px solid rgba(255, 255, 255, 0.35);
   text-align: center;
-  font-size: 16px;
+  font-size: 20px;
   line-height: 20px;
+  letter-spacing: -0.19px;       /* Figma: copyright line is 413px wide */
 }
 
-/* Tablet */
+/* ---------- Tablet: brand block on top, two link columns below ---------- */
 @media (max-width: 1000px) {
   .footer__top {
     grid-template-columns: 1fr 1fr;
@@ -86,11 +92,11 @@
   }
 
   .footer__brand {
-    grid-column: 1 / -1;
+    grid-column: 1 / -1;         /* span both columns */
   }
 }
 
-/* Mobile */
+/* ---------- Mobile: everything in one column ---------- */
 @media (max-width: 600px) {
   .footer__top {
     grid-template-columns: 1fr;

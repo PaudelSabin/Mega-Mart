@@ -1,3 +1,15 @@
+/**
+ * SectionHeader  (reusable component)
+ * -----------------------------------
+ * The title row above each product section:
+ *   "Grab the best deal on Smartphones"            View All >
+ * with a thin grey line across, and a blue line under the title.
+ * Used 4 times (Smartphones, Top Categories, Electronics Brands, Daily Essentials).
+ *
+ * Props:
+ *  - title:     the dark-grey part of the heading
+ *  - highlight: the blue part at the end
+ */
 import "./SectionHeader.css";
 
 interface SectionHeaderProps {

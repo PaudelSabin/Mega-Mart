@@ -1,10 +1,21 @@
+/**
+ * EssentialCard  (reusable component)
+ * -----------------------------------
+ * A grey square tile with a picture, and under it a name and an offer
+ * ("Fruits / UP to 50% OFF"). Used 6 times in the "Daily Essentials" section.
+ *
+ * Props:
+ *  - name, offer: the two text lines under the tile
+ *  - image:       the picture
+ *  - imageWidth:  width (px) the picture is drawn at inside the tile
+ *  - selected:    optional, shows the blue outline (hover does too)
+ */
 import "./EssentialCard.css";
 
 interface EssentialCardProps {
   name: string;
   offer: string;
   image: string;
-  /** Width (px) the image is drawn at inside the tile. */
   imageWidth: number;
   selected?: boolean;
 }

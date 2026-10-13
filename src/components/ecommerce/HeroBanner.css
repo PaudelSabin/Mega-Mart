@@ -1,56 +1,78 @@
+/* =============================================================================
+   HeroBanner.css
+   Every number below comes from the Figma file (1440px wide page).
+   Positions are measured from the banner's TOP-LEFT corner.
+   ============================================================================= */
+
+/* The banner starts 20px under the category nav (Figma: banner y=220, nav ends y=200) */
 .hero {
   margin-top: 20px;
 }
 
+/* The banner itself: 1200 x 316.
+   position: relative -> the children below are positioned INSIDE this box. */
 .hero__banner {
   position: relative;
   height: 316px;
   color: var(--color-white);
 }
 
+/* ---------- Layer 1: background ---------- */
 .hero__background {
   position: absolute;
-  inset: 0;
-  overflow: hidden;
+  inset: 0; /* shorthand for top:0; right:0; bottom:0; left:0 -> fills the banner */
+  overflow: hidden; /* cuts off anything that sticks out (the circles) */
   border-radius: 12px;
-  background: #272c4a;
+  background: #212844; /* navy colour picked from the Figma screenshot */
 }
 
-.hero__circle {
+/* The two semicircle pictures from Figma.
+   Their size is NOT set here on purpose: each picture is already the exact
+   size of the shape in Figma (the part that is visible inside the banner),
+   so we only place them. */
+
+/* Filled half-circle: 467 x 159, starts 734px from the left, touches the top edge */
+.hero__circle-fill {
+  position: absolute;
+  top: 0;
+  left: 734px;
+  max-width: none; /* index.css limits images to 100% width: switch that off */
+}
+
+/* Thin outline ring: 485 x 177, starts 716px from the left, touches the top edge */
+.hero__circle-line {
+  position: absolute;
+  top: 0;
+  left: 716px;
+  max-width: none;
+}
+
+/* Two small faint circles at the bottom (Figma: 177px at x=791 and 148px at x=805).
+   Only their top curve is visible, because the banner cuts off the rest. */
+.hero__bubble {
   position: absolute;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-.hero__circle--large {
-  width: 516px;
-  height: 516px;
-  left: 716px;
-  top: -339px;
-}
-
-.hero__circle--medium {
-  width: 480px;
-  height: 480px;
-  left: 734px;
-  top: -321px;
-}
-
-.hero__circle--small {
+.hero__bubble--large {
   width: 177px;
   height: 177px;
   left: 791px;
   top: 238px;
 }
 
-.hero__circle--tiny {
+.hero__bubble--small {
   width: 148px;
   height: 148px;
   left: 805px;
   top: 253px;
 }
 
+/* ---------- Layer 2: arrow buttons ---------- */
+/* Vertically centred (top: 50% + translateY(-50%)).
+   z-index: 2 puts them above the text and the watch. */
 .hero__arrow {
   position: absolute;
   top: 50%;
@@ -58,6 +80,7 @@
   transform: translateY(-50%);
 }
 
+/* The button is 86px wide: half of it (43px) hangs outside the banner (Figma) */
 .hero__arrow--left {
   left: -43px;
 }
@@ -66,6 +89,10 @@
   right: -43px;
 }
 
+/* ---------- Layer 3: text ---------- */
+/* Text block: 90px from the left, first line 40px from the top.
+   Figma sizes: subtitle 30px, title 63px bold, offer 30px.
+   Each line is 20px below the previous one. */
 .hero__content {
   position: absolute;
   left: 90px;
@@ -74,42 +101,52 @@
 }
 
 .hero__subtitle {
-  font-size: 24px;
+  font-size: 30px;
   line-height: 30px;
-  font-weight: 500;
+  font-weight: 600;
+  letter-spacing: -0.3px; /* makes the line exactly 464px wide, like Figma */
 }
 
 .hero__title {
   margin-top: 20px;
-  font-size: 48px;
-  line-height: 56px;
+  font-size: 63px;
+  line-height: 56px; /* the text box in Figma is 56px tall */
   font-weight: 700;
-  letter-spacing: 0.5px;
+  letter-spacing: -0.2px; /* exactly 574px wide, like Figma */
 }
 
 .hero__offer {
   margin-top: 20px;
-  font-size: 24px;
+  font-size: 30px;
   line-height: 30px;
-  font-weight: 500;
+  font-weight: 600;
+  letter-spacing: -0.25px; /* exactly 202px wide, like Figma */
 }
 
+/* ---------- Layer 4: watch picture ---------- */
+/* Figma: 268 x 270, 24px from the top, 124px from the right edge */
 .hero__image {
   position: absolute;
   top: 24px;
-  right: 45px;
+  right: 124px;
   width: 268px;
   height: 270px;
   object-fit: contain;
 }
 
+/* ---------- Layer 5: dots ---------- */
+/* 90px from the left, 39px from the bottom (Figma: y = 269 from the top) */
 .hero__dots {
   position: absolute;
   left: 90px;
   bottom: 39px;
 }
 
-/* Narrow desktop: keep the arrows inside the banner so the page never scrolls sideways */
+/* =============================================================================
+   Responsive (not in the Figma file: these keep the banner usable on small screens)
+   ============================================================================= */
+
+/* Narrow desktop: keep the arrows INSIDE the banner so the page never scrolls sideways */
 @media (max-width: 1300px) {
   .hero__arrow--left {
     left: 12px;
@@ -131,44 +168,37 @@
     top: 36px;
   }
 
-  .hero__title {
-    font-size: 36px;
-    line-height: 44px;
-  }
-
   .hero__subtitle,
   .hero__offer {
-    font-size: 20px;
+    font-size: 22px;
     line-height: 26px;
+  }
+
+  .hero__title {
+    font-size: 44px;
+    line-height: 48px;
   }
 
   .hero__image {
     width: 230px;
     height: 232px;
-    right: 24px;
+    right: 40px;
   }
 
   .hero__dots {
     left: 56px;
   }
-
 }
 
-/* Mobile: text on top, watch below */
+/* Mobile: text on top, watch below, arrows hidden */
 @media (max-width: 700px) {
   .hero__banner {
-    height: 380px;
+    height: 390px;
   }
 
   .hero__content {
     left: 24px;
     top: 28px;
-  }
-
-  .hero__title {
-    margin-top: 12px;
-    font-size: 28px;
-    line-height: 34px;
   }
 
   .hero__subtitle,
@@ -178,13 +208,19 @@
     line-height: 22px;
   }
 
+  .hero__title {
+    margin-top: 12px;
+    font-size: 30px;
+    line-height: 36px;
+  }
+
   .hero__image {
     top: auto;
     right: 50%;
     bottom: 36px;
     width: 170px;
     height: 172px;
-    transform: translateX(50%);
+    transform: translateX(50%); /* centre horizontally */
   }
 
   .hero__dots {

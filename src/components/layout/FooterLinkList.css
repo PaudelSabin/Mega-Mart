@@ -1,10 +1,12 @@
+/* Heading: 20px semi-bold white, with a 1px white line exactly as wide as the text
+   (Figma: 'Most Popular Categories' = 219px) */
 .footer-links__heading {
-  display: inline-block;
+  display: inline-block;        /* shrink-wraps the text so the line matches its width */
   padding-bottom: 16px;
   border-bottom: 1px solid var(--color-white);
-  font-size: 18px;
+  font-size: 20px;
   line-height: 20px;
-  font-weight: 700;
+  font-weight: 600;
   color: var(--color-white);
 }
 
@@ -12,15 +14,17 @@
   margin-top: 20px;
 }
 
+/* Each item: 18px text, 37px apart (20px line + 17px gap), small round bullet */
 .footer-links__list li {
   position: relative;
   margin-bottom: 17px;
   padding-left: 16px;
-  font-size: 16px;
+  font-size: 18px;
   line-height: 20px;
   color: var(--color-white);
 }
 
+/* The bullet is drawn with CSS: a 4px white dot */
 .footer-links__list li::before {
   content: "";
   position: absolute;

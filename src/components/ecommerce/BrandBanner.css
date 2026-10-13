@@ -1,24 +1,33 @@
+/* =============================================================================
+   BrandBanner.css
+   Figma: card 389 x 207, 3 per row with 16px gaps, 10px rounded corners.
+   ============================================================================= */
+
 .brand-banner {
-  position: relative;
+  position: relative; /* children are positioned inside the card */
   height: 207px;
-  overflow: hidden;
+  overflow: hidden; /* clips the phone picture and the circle at the rounded corners */
   border-radius: 10px;
+  /* soft shadow under the card (visible in the Figma) */
   box-shadow: 0 24px 30px -18px rgba(0, 0, 0, 0.2);
 }
 
+/* ---------- Circle picture (from Figma) ----------
+   Anchored to the TOP-RIGHT corner of the card. No width/height is set: each
+   picture already has the exact size of the shape in Figma
+   (iPhone 201x161, Realme and Xiaomi 215x189). */
 .brand-banner__circle {
   position: absolute;
-  top: 12px;
-  left: 203px;
-  width: 180px;
-  height: 180px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.12);
+  top: 0;
+  right: 0;
+  max-width: none; /* index.css limits images to 100% width: switch that off */
 }
 
+/* ---------- Left side: tag, logo, offer ---------- */
+/* Stacked in a column with 20px gaps and 20px padding (Figma) */
 .brand-banner__text {
   position: relative;
-  z-index: 1;
+  z-index: 1; /* above the circle picture */
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -26,6 +35,7 @@
   padding: 20px;
 }
 
+/* The small rounded tag ("IPHONE") */
 .brand-banner__tag {
   display: inline-block;
   padding: 9px 20px;
@@ -37,17 +47,23 @@
   text-transform: uppercase;
 }
 
+/* The logo keeps its own size (iPhone 62x62, Realme 114x34, Xiaomi 67x67) */
 .brand-banner__logo {
-  max-width: 120px;
+  max-width: none;
   height: auto;
 }
 
+/* "UP to 80% OFF": 24px (Figma: the text is 162px wide) */
 .brand-banner__offer {
-  font-size: 20px;
+  font-size: 24px;
   line-height: 30px;
-  font-weight: 700;
+  font-weight: 600;
 }
 
+/* ---------- Phone picture ----------
+   In all three cards the phone's CENTRE is 293px from the card's left edge,
+   so we put that point at left: 293px and pull the picture back by half its
+   own size with translate(-50%, -50%). */
 .brand-banner__image {
   position: absolute;
   top: 50%;
@@ -58,7 +74,7 @@
   transform: translate(-50%, -50%);
 }
 
-/* Themes */
+/* ---------- Colour themes (picked from the Figma screenshot) ---------- */
 .brand-banner--dark {
   background: #333333;
   color: var(--color-white);
@@ -70,7 +86,7 @@
 }
 
 .brand-banner--yellow {
-  background: #fff3bf;
+  background: #fef0c4;
   color: var(--color-dark);
 }
 
@@ -80,7 +96,7 @@
 }
 
 .brand-banner--peach {
-  background: #ffe0d1;
+  background: #ffede2;
   color: var(--color-dark);
 }
 
@@ -89,12 +105,11 @@
   color: #8a4a33;
 }
 
-/* Small screens: phone moves to the right edge, smaller, so it never covers the text */
+/* ---------- Mobile (not in Figma) ----------
+   The phone moves to the right edge and gets smaller so it never covers the
+   text. !important is needed because the real height is set inline in the
+   component, and inline styles normally win. */
 @media (max-width: 700px) {
-  .brand-banner__circle {
-    display: none;
-  }
-
   .brand-banner__image {
     left: auto;
     right: -10px;

@@ -1,17 +1,67 @@
-/* Global styles only: design tokens, reset, and the shared .container.
-   Each component has its own CSS file next to it for everything else. */
+/* =========================================================
+   Global styles. Used by every component, so keep this short:
+     1. design tokens (colours + font) as CSS variables
+     2. a small reset
+     3. the shared .container class
+   Everything else lives in the CSS file next to each component.
+   ========================================================= */
+
+/* =========================================================
+   Font: HK Grotesk (the exact font used in the Figma file, SIL Open Font
+   License). The files are bundled in src/assets/fonts, so no internet
+   connection or Google Fonts link is needed.
+   ========================================================= */
+@font-face {
+  font-family: "HK Grotesk";
+  src: url("./assets/fonts/hkgrotesk-regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "HK Grotesk";
+  src: url("./assets/fonts/hkgrotesk-medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "HK Grotesk";
+  src: url("./assets/fonts/hkgrotesk-semibold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "HK Grotesk";
+  src: url("./assets/fonts/hkgrotesk-bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
 
 :root {
+  /* Colours measured from the Figma file */
   --color-primary: #008ecc;
   --color-text: #666666;
   --color-heading: #1a1a1a;
   --color-bg-grey: #f5f5f5;
   --color-divider: #d9d9d9;
   --color-white: #ffffff;
+  --color-bg-light-blue: #f3f9fb;
+  --color-border: #ededed;
+  --color-dark: #181818;
+  --color-green: #1a8f2d;
 
-  --font-main: "Hanken Grotesk", "HK Grotesk", system-ui, sans-serif;
+
+  --font-main: "HK Grotesk", system-ui, sans-serif;
 }
 
+/* ----- Reset ----- */
+/* border-box: width/height include padding and border, so sizes match Figma */
 *,
 *::before,
 *::after {
@@ -62,7 +112,9 @@ ul {
   list-style: none;
 }
 
-/* 1200px of content on a 1440px page (1232px + 16px padding each side) */
+/* ----- .container -----
+   Keeps content 1200px wide and centred (Figma: 1440px page, 120px margins).
+   1232px max width - 16px padding on each side = 1200px of content. */
 .container {
   width: 100%;
   max-width: 1232px;

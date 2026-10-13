@@ -1,9 +1,22 @@
+/**
+ * CategoryCard  (reusable component)
+ * ----------------------------------
+ * A grey circle with a picture and a label under it
+ * (Mobile, Cosmetics, Electronics, ...). Used 7 times in HomePage.tsx.
+ *
+ * Props:
+ *  - label:     text under the circle (also the image's alt text)
+ *  - image:     the picture
+ *  - imageSize: optional width (px) of the picture inside the circle. Leave
+ *               it out for photos that should fill the whole circle; set it
+ *               for cut-out images that have empty space around them.
+ *  - selected:  optional, shows the blue outline (hover does too)
+ */
 import "./CategoryCard.css";
 
 interface CategoryCardProps {
   label: string;
   image: string;
-  /** Width (px) of the image inside the circle. Leave out to fill the circle. */
   imageSize?: number;
   selected?: boolean;
 }

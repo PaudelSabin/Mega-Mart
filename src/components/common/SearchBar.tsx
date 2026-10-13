@@ -1,3 +1,14 @@
+/**
+ * SearchBar  (reusable component)
+ * -------------------------------
+ * The rounded light-blue search box:
+ *   [magnifier icon] [text input] [list icon]
+ *
+ * Props:
+ *  - placeholder: the grey hint text shown inside the input
+ *
+ * The input is a real <input>, so you can type in it.
+ */
 import "./SearchBar.css";
 
 interface SearchBarProps {
@@ -7,6 +18,7 @@ interface SearchBarProps {
 function SearchBar({ placeholder }: SearchBarProps) {
   return (
     <div className="search-bar">
+      {/* Left: magnifier icon */}
       <svg
         className="search-bar__search-icon"
         viewBox="0 0 24 24"
@@ -27,6 +39,7 @@ function SearchBar({ placeholder }: SearchBarProps) {
         aria-label="Search"
       />
 
+      {/* Right: "list" icon */}
       <svg
         className="search-bar__list-icon"
         viewBox="0 0 24 24"

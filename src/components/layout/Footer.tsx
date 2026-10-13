@@ -1,3 +1,15 @@
+/**
+ * Footer  (layout component)
+ * --------------------------
+ * The big blue block at the bottom. Three columns:
+ *   1. logo, contact details, app-store badges
+ *   2. "Most Popular Categories" links
+ *   3. "Customer Services" links
+ * plus a copyright line under a thin white line.
+ *
+ * Props: logo (white logo image), appStoreBadge, playStoreBadge (images)
+ * Re-uses ContactItem (x2) and FooterLinkList (x2).
+ */
 import ContactItem from "./ContactItem";
 import FooterLinkList from "./FooterLinkList";
 import "./Footer.css";
@@ -11,11 +23,13 @@ interface FooterProps {
 function Footer({ logo, appStoreBadge, playStoreBadge }: FooterProps) {
   return (
     <footer className="footer">
+      {/* Decorative translucent circles in the bottom-right (purely visual) */}
       <span className="footer__circle footer__circle--outer" aria-hidden="true" />
       <span className="footer__circle footer__circle--inner" aria-hidden="true" />
 
       <div className="container footer__inner">
         <div className="footer__top">
+          {/* ----- Column 1: brand, contact, app badges ----- */}
           <div className="footer__brand">
             <img className="footer__logo" src={logo} alt="MegaMart" />
 
@@ -51,6 +65,7 @@ function Footer({ logo, appStoreBadge, playStoreBadge }: FooterProps) {
             </div>
           </div>
 
+          {/* ----- Column 2: links written out one by one (no .map) ----- */}
           <FooterLinkList heading="Most Popular Categories">
             <li><a href="#">Staples</a></li>
             <li><a href="#">Beverages</a></li>
@@ -62,6 +77,7 @@ function Footer({ logo, appStoreBadge, playStoreBadge }: FooterProps) {
             <li><a href="#">Dairy &amp; Bakery</a></li>
           </FooterLinkList>
 
+          {/* ----- Column 3 ----- */}
           <FooterLinkList heading="Customer Services">
             <li><a href="#">About Us</a></li>
             <li><a href="#">Terms &amp; Conditions</a></li>
@@ -72,6 +88,7 @@ function Footer({ logo, appStoreBadge, playStoreBadge }: FooterProps) {
           </FooterLinkList>
         </div>
 
+        {/* ----- Copyright line ----- */}
         <div className="footer__bottom">
           <p>© 2022 All rights reserved. Reliance Retail Ltd.</p>
         </div>

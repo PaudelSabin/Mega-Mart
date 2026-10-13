@@ -1,3 +1,5 @@
+/* SearchBar: 48px tall, 10px radius, #F3F9FB background (Figma: 507 x 48).
+   Width is 100% of its parent; Header.css gives the parent the 507px width. */
 .search-bar {
   display: flex;
   align-items: center;
@@ -16,6 +18,7 @@
   color: var(--color-primary);
 }
 
+/* The input fills the middle and has no border of its own */
 .search-bar__input {
   flex: 1;
   min-width: 0;
@@ -29,7 +32,7 @@
 
 .search-bar__input::placeholder {
   color: var(--color-text);
-  opacity: 1;
+  opacity: 1;                    /* some browsers fade placeholders by default */
 }
 
 .search-bar__list-icon {

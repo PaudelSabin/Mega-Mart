@@ -1,3 +1,4 @@
+/* ContactItem: 24px icon + two lines of white text (Figma footer) */
 .contact-item {
   display: flex;
   align-items: flex-start;

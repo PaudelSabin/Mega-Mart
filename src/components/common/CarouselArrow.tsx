@@ -1,3 +1,15 @@
+/**
+ * CarouselArrow  (reusable component)
+ * -----------------------------------
+ * A big white round button with a left or right arrow, used on both sides
+ * of the hero banner.
+ *
+ * Props:
+ *  - direction: "left" or "right" (a TypeScript "union type", so any other
+ *               value is a compile error)
+ *
+ * It does not slide anything yet; it only presents the button.
+ */
 import "./CarouselArrow.css";
 
 interface CarouselArrowProps {
@@ -9,6 +21,7 @@ function CarouselArrow({ direction }: CarouselArrowProps) {
     <button
       type="button"
       className="carousel-arrow"
+      // Screen readers announce this label because the button has no text
       aria-label={direction === "left" ? "Previous slide" : "Next slide"}
     >
       <svg
@@ -19,6 +32,7 @@ function CarouselArrow({ direction }: CarouselArrowProps) {
         strokeLinecap="round"
         strokeLinejoin="round"
       >
+        {/* Pick the arrow shape from the prop */}
         {direction === "left" ? (
           <path d="M15 5l-7 7 7 7" />
         ) : (

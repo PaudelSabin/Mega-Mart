@@ -1,3 +1,13 @@
+/**
+ * NavPill  (reusable component)
+ * -----------------------------
+ * One rounded category button with a small down-arrow, e.g. "Fashion v".
+ * Used 8 times inside CategoryNav.
+ *
+ * Props:
+ *  - label:  the text on the button
+ *  - active: when true the pill is filled blue (the selected category)
+ */
 import "./NavPill.css";
 
 interface NavPillProps {
@@ -9,6 +19,7 @@ function NavPill({ label, active = false }: NavPillProps) {
   return (
     <button
       type="button"
+      // Add the "--active" modifier class only for the selected pill
       className={active ? "nav-pill nav-pill--active" : "nav-pill"}
     >
       <span>{label}</span>

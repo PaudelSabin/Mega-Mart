@@ -1,3 +1,11 @@
+/**
+ * ContactItem  (reusable component)
+ * ---------------------------------
+ * An icon with a small label and a phone number under it, used in the
+ * footer twice: WhatsApp and Call Us.
+ *
+ * Props: icon, label ("Whats App"), value ("+1 202-918-2132")
+ */
 import type { ReactNode } from "react";
 import "./ContactItem.css";
 

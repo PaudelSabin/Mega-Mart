@@ -1,3 +1,4 @@
+/* Header: 90px white bar with a 1px #EDEDED line underneath (Figma) */
 .header {
   height: 90px;
   background: var(--color-white);
@@ -10,6 +11,7 @@
   height: 100%;
 }
 
+/* Menu button (48x48) + logo (28px tall), 16px apart */
 .header__brand {
   display: flex;
   align-items: center;
@@ -25,7 +27,7 @@
   padding: 0;
   border: 0;
   border-radius: 10px;
-  background: var(--color-bg-light-blue);
+  background: var(--color-bg-light-blue);  /* #F3F9FB */
   color: var(--color-primary);
 }
 
@@ -34,12 +36,15 @@
   width: auto;
 }
 
+/* Search sits 542px from the page edge in Figma (1440px wide page):
+   120px page margin + 202px brand block (48 button + 16 gap + 138 logo) + 220px gap = 542px */
 .header__search {
   width: 507px;
-  min-width: 0;
+  min-width: 0;          /* lets it shrink on small screens */
   margin-left: 220px;
 }
 
+/* Sign in + cart are pushed to the far right (margin-left: auto) */
 .header__actions {
   display: flex;
   align-items: center;
@@ -68,12 +73,13 @@
 }
 
 .header__divider {
-  width: 1px;
+  width: 0;
   height: 24px;
-  background: var(--color-divider);
+  border-left: 1px solid var(--color-divider);
+  margin-right: -1px;            /* line takes no space, like in Figma */
 }
 
-/* Tablet: search shrinks to fill the space */
+/* ---------- Tablet: search shrinks to fill the free space ---------- */
 @media (max-width: 1100px) {
   .header__search {
     flex: 1;
@@ -87,7 +93,7 @@
   }
 }
 
-/* Mobile: search moves onto its own row, labels hidden */
+/* ---------- Mobile: search drops onto its own row, labels hidden ---------- */
 @media (max-width: 700px) {
   .header {
     height: auto;
@@ -102,7 +108,7 @@
   }
 
   .header__search {
-    order: 3;
+    order: 3;              /* move below the logo and icons */
     flex: 0 0 100%;
     margin: 0;
   }

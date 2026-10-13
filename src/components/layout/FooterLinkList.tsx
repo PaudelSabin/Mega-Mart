@@ -1,9 +1,19 @@
+/**
+ * FooterLinkList  (reusable component)
+ * ------------------------------------
+ * A white heading with an underline, and a bulleted list of links below it.
+ * Used twice in the footer: "Most Popular Categories" and "Customer Services".
+ *
+ * Props:
+ *  - heading:  the title text
+ *  - children: the <li> items. The parent writes each link out by hand, which
+ *              keeps us inside the "no .map()" rule of the task.
+ */
 import type { ReactNode } from "react";
 import "./FooterLinkList.css";
 
 interface FooterLinkListProps {
   heading: string;
-  /** The <li> items of the list, written out by the parent */
   children: ReactNode;
 }
 

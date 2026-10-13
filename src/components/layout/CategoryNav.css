@@ -1,21 +1,25 @@
+/* CategoryNav: 16px above + 36px pills + 16px below + 1px line = 69px (Figma).
+   In Figma it starts 1px early (y=131), overlapping the header's bottom line. */
 .category-nav {
+  margin-top: -1px;
   padding: 16px 0;
   border-bottom: 1px solid var(--color-border);
 }
 
+/* Pills are spread across the 1200px width, at least 14px apart */
 .category-nav__list {
   display: flex;
   justify-content: space-between;
   gap: 14px;
-  overflow-x: auto;
-  scrollbar-width: none;
+  overflow-x: auto;            /* scroll sideways if they do not fit */
+  scrollbar-width: none;       /* hide the scrollbar (Firefox) */
 }
 
 .category-nav__list::-webkit-scrollbar {
-  display: none;
+  display: none;               /* hide the scrollbar (Chrome/Safari) */
 }
 
-/* When the pills no longer fit, let them scroll sideways from the left */
+/* When the pills no longer fit, start them from the left and let them scroll */
 @media (max-width: 1250px) {
   .category-nav__list {
     justify-content: flex-start;

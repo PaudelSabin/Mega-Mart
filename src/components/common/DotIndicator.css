@@ -1,3 +1,4 @@
+/* 7 dots, 8px tall, 7px apart; the active one is 24px long (Figma: 114 x 8 total) */
 .dot-indicator {
   display: flex;
   align-items: center;
@@ -5,11 +6,14 @@
   height: 8px;
 }
 
+/* Default colour is white, made for the dark hero banner (in Figma the inactive
+   dots are bright white too). HomePage.css overrides it for the white page
+   under the brand banners. */
 .dot-indicator__dot {
   width: 8px;
   height: 8px;
   border-radius: 4px;
-  background: rgba(255, 255, 255, 0.45);
+  background: rgba(255, 255, 255, 0.85);
   transition: width 0.2s;
 }
 

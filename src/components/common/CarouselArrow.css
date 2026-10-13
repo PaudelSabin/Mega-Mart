@@ -1,3 +1,5 @@
+/* Round button, 86px across in Figma. The fill is a very pale blue (#F3F9FB),
+   which is what the Figma screenshot shows, with a faint shadow. */
 .carousel-arrow {
   display: flex;
   align-items: center;
@@ -7,9 +9,9 @@
   padding: 0;
   border: 0;
   border-radius: 50%;
-  background: var(--color-white);
+  background: var(--color-bg-light-blue);
   color: var(--color-primary);
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
   transition: box-shadow 0.2s;
 }
 
@@ -22,6 +24,7 @@
   box-shadow: 0 6px 28px rgba(0, 0, 0, 0.16);
 }
 
+/* ---------- Smaller screens: a smaller button ---------- */
 @media (max-width: 1300px) {
   .carousel-arrow {
     width: 52px;

@@ -2,16 +2,17 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <!-- Makes the page scale correctly on phones -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
+    <!--
+      No font link is needed here any more: the HK Grotesk font files are
+      bundled in src/assets/fonts and loaded by the @font-face rules in
+      src/index.css (so the page also works offline).
+    -->
     <title>MegaMart</title>
   </head>
   <body>
+    <!-- React renders the whole site inside this empty div (see src/main.tsx) -->
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

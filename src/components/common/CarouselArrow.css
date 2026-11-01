@@ -1,3 +1,5 @@
+/* Round button, 86px across in Figma. The fill is a very pale blue (#F3F9FB),
+   which is what the Figma screenshot shows, with a faint shadow. */
 .carousel-arrow {
   display: flex;
   align-items: center;
@@ -7,21 +9,44 @@
   padding: 0;
   border: 0;
   border-radius: 50%;
-  background: var(--color-white);
+  background: var(--color-bg-light-blue);
   color: var(--color-primary);
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
-  transition: box-shadow 0.2s;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+  cursor: pointer;
+  /* EFFECT: size and shadow change smoothly */
+  transition: transform 0.3s var(--ease-out), box-shadow 0.3s, background 0.3s, color 0.3s;
 }
 
 .carousel-arrow svg {
   width: 24px;
   height: 24px;
+  transition: transform 0.3s var(--ease-out);
 }
 
-.carousel-arrow:hover {
-  box-shadow: 0 6px 28px rgba(0, 0, 0, 0.16);
+/* EFFECT (hover): button grows, turns solid blue, arrow slides in its direction */
+@media (hover: hover) {
+  .carousel-arrow:hover {
+    transform: scale(1.1);
+    background: var(--color-primary);
+    color: var(--color-white);
+    box-shadow: 0 8px 28px rgba(0, 140, 204, 0.35);
+  }
+
+  .carousel-arrow--left:hover svg {
+    transform: translateX(-3px);
+  }
+
+  .carousel-arrow--right:hover svg {
+    transform: translateX(3px);
+  }
 }
 
+/* EFFECT (press): the button sinks a little while the mouse is held down */
+.carousel-arrow:active {
+  transform: scale(0.94);
+}
+
+/* ---------- Smaller screens: a smaller button ---------- */
 @media (max-width: 1300px) {
   .carousel-arrow {
     width: 52px;

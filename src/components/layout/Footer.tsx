@@ -1,46 +1,71 @@
+/**
+ * Footer  (layout component)
+ * --------------------------
+ * The big blue block at the bottom. Three columns:
+ *   1. logo, contact details, app-store badges
+ *   2. "Most Popular Categories" links
+ *   3. "Customer Services" links
+ * plus a copyright line under a thin white line.
+ *
+ * Props:
+ *  - logo, appStoreBadge, playStoreBadge: images
+ *  - contacts:   an ARRAY of contact entries (icon, label, value). Footer loops
+ *                over it with .map() and draws one ContactItem per entry.
+ *  - linkGroups: an ARRAY of groups. Each group has a heading and its OWN array of
+ *                links. Footer maps over the groups to draw one FooterLinkList each,
+ *                and inside it maps over that group's links to draw the <li> rows.
+ *  Both arrays come from src/data/homeData.ts.
+ *
+ * Re-uses ContactItem and FooterLinkList.
+ *
+ * Icons come from the react-icons library (Remix "line" set). Which icon each
+ * contact uses is stored in the data array (src/data/homeData.ts) as a component,
+ * and drawn here with <contact.icon />.
+ */
 import ContactItem from "./ContactItem";
 import FooterLinkList from "./FooterLinkList";
 import "./Footer.css";
+import type { ContactEntry, FooterGroup } from "../../types/homeTypes";
 
 interface FooterProps {
   logo: string;
   appStoreBadge: string;
   playStoreBadge: string;
+  contacts: ContactEntry[];
+  linkGroups: FooterGroup[];
 }
 
-function Footer({ logo, appStoreBadge, playStoreBadge }: FooterProps) {
+function Footer({
+  logo,
+  appStoreBadge,
+  playStoreBadge,
+  contacts,
+  linkGroups,
+}: FooterProps) {
   return (
     <footer className="footer">
+      {/* Decorative translucent circles in the bottom-right (purely visual) */}
       <span className="footer__circle footer__circle--outer" aria-hidden="true" />
       <span className="footer__circle footer__circle--inner" aria-hidden="true" />
 
       <div className="container footer__inner">
         <div className="footer__top">
+          {/* ----- Column 1: brand, contact, app badges ----- */}
           <div className="footer__brand">
             <img className="footer__logo" src={logo} alt="MegaMart" />
 
             <h3 className="footer__heading">Contact Us</h3>
 
             <div className="footer__contacts">
-              <ContactItem
-                label="Whats App"
-                value="+1 202-918-2132"
-                icon={
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M3 21l1.65-4.8A9 9 0 1 1 8 19.4L3 21z" />
-                    <path d="M9 8.5c0 3.5 2.5 6.5 6.5 6.5l1-1.4-2-1-1 .8c-.9-.4-1.6-1.2-2-2l.8-1-1-2L9 8.5z" />
-                  </svg>
-                }
-              />
-              <ContactItem
-                label="Call Us"
-                value="+1 202-918-2132"
-                icon={
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z" />
-                  </svg>
-                }
-              />
+              {/* One ContactItem per entry of the "contacts" array */}
+              {contacts.map((contact) => (
+                <ContactItem
+                  key={contact.id}
+                  label={contact.label}
+                  value={contact.value}
+                  icon={<contact.icon />}
+                />
+              ))}
             </div>
 
             <h3 className="footer__heading footer__heading--app">Download App</h3>
@@ -51,27 +76,22 @@ function Footer({ logo, appStoreBadge, playStoreBadge }: FooterProps) {
             </div>
           </div>
 
-          <FooterLinkList heading="Most Popular Categories">
-            <li><a href="#">Staples</a></li>
-            <li><a href="#">Beverages</a></li>
-            <li><a href="#">Personal Care</a></li>
-            <li><a href="#">Home Care</a></li>
-            <li><a href="#">Baby Care</a></li>
-            <li><a href="#">Vegetables &amp; Fruits</a></li>
-            <li><a href="#">Snacks &amp; Foods</a></li>
-            <li><a href="#">Dairy &amp; Bakery</a></li>
-          </FooterLinkList>
-
-          <FooterLinkList heading="Customer Services">
-            <li><a href="#">About Us</a></li>
-            <li><a href="#">Terms &amp; Conditions</a></li>
-            <li><a href="#">FAQ</a></li>
-            <li><a href="#">Privacy Policy</a></li>
-            <li><a href="#">E-waste Policy</a></li>
-            <li><a href="#">Cancellation &amp; Return Policy</a></li>
-          </FooterLinkList>
+          {/* ----- Columns 2 and 3: one FooterLinkList per group -----
+              The OUTER .map() goes through the groups (one column each).
+              The INNER .map() goes through that group's links (one <li> each).
+              Two .map() calls inside each other = a list inside a list. */}
+          {linkGroups.map((group) => (
+            <FooterLinkList key={group.id} heading={group.heading}>
+              {group.links.map((link) => (
+                <li key={link.id}>
+                  <a href={link.href}>{link.label}</a>
+                </li>
+              ))}
+            </FooterLinkList>
+          ))}
         </div>
 
+        {/* ----- Copyright line ----- */}
         <div className="footer__bottom">
           <p>© 2022 All rights reserved. Reliance Retail Ltd.</p>
         </div>

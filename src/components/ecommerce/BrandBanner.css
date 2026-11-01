@@ -1,24 +1,55 @@
+/* =============================================================================
+   BrandBanner.css
+   Figma: card 389 x 207, 3 per row with 16px gaps, 10px rounded corners.
+   ============================================================================= */
+
 .brand-banner {
-  position: relative;
+  position: relative; /* children are positioned inside the card */
   height: 207px;
-  overflow: hidden;
+  overflow: hidden; /* clips the phone picture and the circle at the rounded corners */
   border-radius: 10px;
+  /* soft shadow under the card (visible in the Figma) */
   box-shadow: 0 24px 30px -18px rgba(0, 0, 0, 0.2);
+  /* EFFECT: lift and shadow change smoothly */
+  transition: transform 0.4s var(--ease-out), box-shadow 0.4s;
 }
 
+/* EFFECT (hover): the whole card lifts 6px and its shadow grows */
+@media (hover: hover) {
+  .brand-banner:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 30px 36px -16px rgba(0, 0, 0, 0.32);
+  }
+
+  /* the circle behind the phone swells, growing out of the top-right corner */
+  .brand-banner:hover .brand-banner__circle {
+    transform: scale(1.12);
+  }
+
+  /* the phone tilts and grows a little (translate(-50%, -50%) keeps it centred) */
+  .brand-banner:hover .brand-banner__image {
+    transform: translate(-50%, -50%) scale(1.07) rotate(-3deg);
+  }
+}
+
+/* ---------- Circle picture (from Figma) ----------
+   Anchored to the TOP-RIGHT corner of the card. No width/height is set: each
+   picture already has the exact size of the shape in Figma
+   (iPhone 201x161, Realme and Xiaomi 215x189). */
 .brand-banner__circle {
   position: absolute;
-  top: 12px;
-  left: 203px;
-  width: 180px;
-  height: 180px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.12);
+  top: 0;
+  right: 0;
+  max-width: none; /* index.css limits images to 100% width: switch that off */
+  transform-origin: top right; /* so it grows out of the corner it is anchored to */
+  transition: transform 0.6s var(--ease-out);
 }
 
+/* ---------- Left side: tag, logo, offer ---------- */
+/* Stacked in a column with 20px gaps and 20px padding (Figma) */
 .brand-banner__text {
   position: relative;
-  z-index: 1;
+  z-index: 1; /* above the circle picture */
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -26,6 +57,7 @@
   padding: 20px;
 }
 
+/* The small rounded tag ("IPHONE") */
 .brand-banner__tag {
   display: inline-block;
   padding: 9px 20px;
@@ -37,17 +69,23 @@
   text-transform: uppercase;
 }
 
+/* The logo keeps its own size (iPhone 62x62, Realme 114x34, Xiaomi 67x67) */
 .brand-banner__logo {
-  max-width: 120px;
+  max-width: none;
   height: auto;
 }
 
+/* "UP to 80% OFF": 24px (Figma: the text is 162px wide) */
 .brand-banner__offer {
-  font-size: 20px;
+  font-size: 24px;
   line-height: 30px;
-  font-weight: 700;
+  font-weight: 600;
 }
 
+/* ---------- Phone picture ----------
+   In all three cards the phone's CENTRE is 293px from the card's left edge,
+   so we put that point at left: 293px and pull the picture back by half its
+   own size with translate(-50%, -50%). */
 .brand-banner__image {
   position: absolute;
   top: 50%;
@@ -56,9 +94,13 @@
   width: auto;
   max-width: none;
   transform: translate(-50%, -50%);
+  /* EFFECT: smooth tilt on hover, plus a slow float (it uses the separate
+     "translate" property, so it does not clash with the centring transform) */
+  transition: transform 0.5s var(--ease-out);
+  animation: brand-phone-float 4.5s ease-in-out infinite alternate;
 }
 
-/* Themes */
+/* ---------- Colour themes (picked from the Figma screenshot) ---------- */
 .brand-banner--dark {
   background: #333333;
   color: var(--color-white);
@@ -70,7 +112,7 @@
 }
 
 .brand-banner--yellow {
-  background: #fff3bf;
+  background: #fef0c4;
   color: var(--color-dark);
 }
 
@@ -80,7 +122,7 @@
 }
 
 .brand-banner--peach {
-  background: #ffe0d1;
+  background: #ffede2;
   color: var(--color-dark);
 }
 
@@ -89,16 +131,30 @@
   color: #8a4a33;
 }
 
-/* Small screens: phone moves to the right edge, smaller, so it never covers the text */
-@media (max-width: 700px) {
-  .brand-banner__circle {
-    display: none;
+/* Keyframes: the phone drifts up and down by 6px */
+@keyframes brand-phone-float {
+  from {
+    translate: 0 0;
   }
+  to {
+    translate: 0 -6px;
+  }
+}
 
+/* ---------- Mobile (not in Figma) ----------
+   The phone moves to the right edge and gets smaller so it never covers the
+   text. !important is needed because the real height is set inline in the
+   component, and inline styles normally win. */
+@media (max-width: 700px) {
   .brand-banner__image {
     left: auto;
     right: -10px;
     height: 150px !important;
     transform: translateY(-50%);
+  }
+
+  /* the hover tilt must keep this layout's own position (no translateX(-50%)) */
+  .brand-banner:hover .brand-banner__image {
+    transform: translateY(-50%) scale(1.07) rotate(-3deg);
   }
 }

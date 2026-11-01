@@ -1,10 +1,12 @@
+/* Heading: 20px semi-bold white, with a 1px white line exactly as wide as the text
+   (Figma: 'Most Popular Categories' = 219px) */
 .footer-links__heading {
-  display: inline-block;
+  display: inline-block;        /* shrink-wraps the text so the line matches its width */
   padding-bottom: 16px;
   border-bottom: 1px solid var(--color-white);
-  font-size: 18px;
+  font-size: 20px;
   line-height: 20px;
-  font-weight: 700;
+  font-weight: 600;
   color: var(--color-white);
 }
 
@@ -12,15 +14,25 @@
   margin-top: 20px;
 }
 
+/* Each item: 18px text, 37px apart (20px line + 17px gap), small round bullet */
 .footer-links__list li {
   position: relative;
   margin-bottom: 17px;
   padding-left: 16px;
-  font-size: 16px;
+  font-size: 18px;
   line-height: 20px;
   color: var(--color-white);
+  transition: transform 0.25s var(--ease-out);
 }
 
+/* EFFECT (hover): the whole row (bullet + text) slides 6px to the right */
+@media (hover: hover) {
+  .footer-links__list li:hover {
+    transform: translateX(6px);
+  }
+}
+
+/* The bullet is drawn with CSS: a 4px white dot */
 .footer-links__list li::before {
   content: "";
   position: absolute;
@@ -32,6 +44,14 @@
   background: var(--color-white);
 }
 
-.footer-links__list a:hover {
-  text-decoration: underline;
+/* EFFECT (hover): an underline GROWS from left to right under the link.
+   It is a background image whose width animates from 0 to 100%. */
+.footer-links__list a {
+  background: linear-gradient(currentColor, currentColor) left bottom / 0 1px no-repeat;
+  transition: background-size 0.3s var(--ease-out);
+}
+
+.footer-links__list a:hover,
+.footer-links__list a:focus-visible {
+  background-size: 100% 1px;
 }

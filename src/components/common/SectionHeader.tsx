@@ -1,4 +1,22 @@
+/**
+ * SectionHeader  (reusable component)
+ * -----------------------------------
+ * The title row above each product section:
+ *   "Grab the best deal on Smartphones"            View All >
+ * with a thin grey line across, and a blue line under the title.
+ * Used 4 times (Smartphones, Top Categories, Electronics Brands, Daily Essentials).
+ *
+ * Props:
+ *  - title:     the dark-grey part of the heading
+ *  - highlight: the blue part at the end
+ *
+ * Icons come from the react-icons library (Remix "line" set), imported by name:
+ *   import { RiMapPinLine } from "react-icons/ri";
+ * so no SVG has to be drawn by hand. An icon takes its colour from the CSS
+ * "color" of its parent and its size from the CSS (or a size={...} prop).
+ */
 import "./SectionHeader.css";
+import { RiArrowRightSLine } from "react-icons/ri";
 
 interface SectionHeaderProps {
   title: string;
@@ -14,16 +32,7 @@ function SectionHeader({ title, highlight }: SectionHeaderProps) {
 
       <a className="section-header__link" href="#">
         View All
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <path d="M9 5l7 7-7 7" />
-        </svg>
+        <RiArrowRightSLine />
       </a>
     </div>
   );

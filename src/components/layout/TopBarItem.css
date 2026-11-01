@@ -1,18 +1,33 @@
+/* TopBarItem: icon + text, 14px text, 18px icon (Figma top bar) */
 .topbar-item {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 4px;                      /* space between icon and text (Figma) */
   font-size: 14px;
   line-height: 18px;
-  color: var(--color-text);
-  white-space: nowrap;
+  color: var(--color-text);      /* #666666 */
+  white-space: nowrap;           /* never wrap onto two lines */
+  transition: color 0.2s;
+}
+
+/* EFFECT (hover): the text turns brand blue and the icon hops up 2px.
+   @media (hover: hover) keeps it off touch screens, where "hover" would stick. */
+@media (hover: hover) {
+  .topbar-item:hover {
+    color: var(--color-primary);
+  }
+
+  .topbar-item:hover .topbar-item__icon {
+    transform: translateY(-2px);
+  }
 }
 
 .topbar-item__icon {
   display: flex;
   width: 18px;
   height: 18px;
-  color: var(--color-primary);
+  color: var(--color-primary);   /* icons are the brand blue; SVGs use currentColor */
+  transition: transform 0.25s var(--ease-out); /* smooth hop */
 }
 
 .topbar-item__icon svg {
@@ -21,5 +36,5 @@
 }
 
 .topbar-item__highlight {
-  font-weight: 600;
+  font-weight: 600;              /* the bold "423651" */
 }

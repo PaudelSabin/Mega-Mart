@@ -1,3 +1,5 @@
+/* SearchBar: 48px tall, 10px radius, #F3F9FB background (Figma: 507 x 48).
+   Width is 100% of its parent; Header.css gives the parent the 507px width. */
 .search-bar {
   display: flex;
   align-items: center;
@@ -7,6 +9,15 @@
   padding: 0 16px;
   background: var(--color-bg-light-blue);
   border-radius: 10px;
+  /* EFFECT: colour and ring change smoothly */
+  transition: background 0.25s, box-shadow 0.25s;
+}
+
+/* EFFECT (focus): while you type, the box turns white with a blue ring.
+   :focus-within means "this box OR anything inside it has focus". */
+.search-bar:focus-within {
+  background: var(--color-white);
+  box-shadow: 0 0 0 2px var(--color-primary), 0 8px 24px rgba(0, 142, 204, 0.18);
 }
 
 .search-bar__search-icon {
@@ -14,13 +25,20 @@
   width: 18px;
   height: 18px;
   color: var(--color-primary);
+  transition: transform 0.25s var(--ease-out);
 }
 
+/* EFFECT (focus): the magnifier grows a little */
+.search-bar:focus-within .search-bar__search-icon {
+  transform: scale(1.2);
+}
+
+/* The input fills the middle and has no border of its own */
 .search-bar__input {
   flex: 1;
   min-width: 0;
   border: 0;
-  outline: 0;
+  outline: 0; /* the ring is drawn on the whole box instead (see :focus-within) */
   background: transparent;
   font-size: 14px;
   line-height: 18px;
@@ -29,7 +47,42 @@
 
 .search-bar__input::placeholder {
   color: var(--color-text);
+  opacity: 1; /* some browsers fade placeholders by default */
+}
+
+/* The small (x) button: invisible and non-clickable until there is text */
+.search-bar__clear {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: var(--color-divider);
+  color: var(--color-white);
+  cursor: pointer;
+  opacity: 0;
+  scale: 0.6;
+  pointer-events: none;
+  transition: opacity 0.2s, scale 0.25s var(--ease-out), background 0.2s;
+}
+
+.search-bar__clear--visible {
   opacity: 1;
+  scale: 1;
+  pointer-events: auto;
+}
+
+.search-bar__clear:hover {
+  background: var(--color-primary);
+}
+
+.search-bar__clear svg {
+  width: 14px;
+  height: 14px;
 }
 
 .search-bar__list-icon {
@@ -37,4 +90,9 @@
   width: 24px;
   height: 24px;
   color: var(--color-primary);
+  transition: transform 0.25s var(--ease-out);
+}
+
+.search-bar__list-icon:hover {
+  transform: scale(1.12);
 }

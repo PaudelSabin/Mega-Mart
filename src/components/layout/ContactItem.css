@@ -1,8 +1,17 @@
+/* ContactItem: 24px icon + two lines of white text (Figma footer) */
 .contact-item {
   display: flex;
   align-items: flex-start;
   gap: 11px;
   color: var(--color-white);
+  cursor: default;
+}
+
+/* EFFECT (hover): the icon pops and tilts */
+@media (hover: hover) {
+  .contact-item:hover .contact-item__icon {
+    transform: scale(1.2) rotate(-10deg);
+  }
 }
 
 .contact-item__icon {
@@ -10,6 +19,7 @@
   flex-shrink: 0;
   width: 24px;
   height: 24px;
+  transition: transform 0.3s var(--ease-out);
 }
 
 .contact-item__icon svg {

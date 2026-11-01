@@ -1,16 +1,49 @@
+/* Card: ~227px wide (5 columns, 16px gap), 295px tall in Figma */
 .product-card {
   position: relative;
-  min-width: 0;
+  min-width: 0; /* lets the grid shrink it instead of overflowing */
   border: 1px solid var(--color-border);
   border-radius: 10px;
   background: var(--color-white);
-  transition: box-shadow 0.2s, border-color 0.2s;
+  cursor: pointer;
+  /* EFFECT: lift, outline and shadow change smoothly */
+  transition: transform 0.35s var(--ease-out), box-shadow 0.35s, border-color 0.25s;
 }
 
-.product-card:hover,
+/* "Selected" = the blue outline and soft shadow (this is how the Figma shows it) */
 .product-card--selected {
   border-color: var(--color-primary);
   box-shadow: 0 20px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* EFFECT (hover): the card lifts 6px, gets the blue outline and a deeper shadow.
+   @media (hover: hover) keeps this off touch screens, where "hover" sticks. */
+@media (hover: hover) {
+  .product-card:hover {
+    transform: translateY(-6px);
+    border-color: var(--color-primary);
+    box-shadow: 0 26px 36px rgba(0, 0, 0, 0.14);
+  }
+
+  /* the phone zooms in a little */
+  .product-card:hover .product-card__image {
+    transform: scale(1.07);
+  }
+
+  /* the badge pops (keyframes at the bottom of this file) */
+  .product-card:hover .product-card__badge {
+    animation: badge-pop 0.5s var(--ease-out);
+  }
+}
+
+/* EFFECT (press): the card sinks while the mouse button is held */
+.product-card:active {
+  transform: translateY(-2px) scale(0.99);
+}
+
+/* Grey image area: 188px tall */
+.product-card--selected .product-card__media {
+  animation: select-pop 0.45s var(--ease-out); /* EFFECT: a short pop when a card gets selected */
 }
 
 .product-card__media {
@@ -19,18 +52,21 @@
   align-items: center;
   justify-content: center;
   height: 188px;
-  overflow-x: clip; /* oversized image canvas must not widen the card */
+  overflow-x: clip;              /* an oversized image must not widen the card */
   border-radius: 9px 9px 0 0;
   background: var(--color-bg-grey);
 }
 
 .product-card__image {
   flex-shrink: 0;
+  height: var(--image-height); /* set by ProductCard.tsx for each card */
   width: auto;
   max-width: none;
   object-fit: contain;
+  transition: transform 0.5s var(--ease-out); /* smooth zoom on hover */
 }
 
+/* Blue badge in the top-right corner: 51 x 53, white bold 14px text */
 .product-card__badge {
   position: absolute;
   top: 0;
@@ -47,14 +83,17 @@
   font-size: 14px;
   line-height: 16px;
   font-weight: 700;
+  transform-origin: top right; /* the badge grows out of its corner */
 }
 
+/* Text area: 13px side padding, everything 10px apart.
+   Card total = 2 (border) + 188 (image area) + 105 (this area) = 295px */
 .product-card__body {
-  padding: 12px 13px 10px;
+  padding: 12px 13px 8px;
 }
 
 .product-card__name {
-  font-size: 14px;
+  font-size: 16px;               /* Figma: name text is 191px wide */
   line-height: 18px;
   font-weight: 500;
   color: var(--color-dark);
@@ -65,7 +104,7 @@
   align-items: center;
   gap: 10px;
   margin-top: 10px;
-  font-size: 14px;
+  font-size: 16px;
   line-height: 18px;
 }
 
@@ -79,19 +118,51 @@
   text-decoration: line-through;
 }
 
+/* "Save - Rs..." in green, separated by a thin line */
 .product-card__savings {
   margin-top: 10px;
   padding-top: 10px;
   border-top: 1px solid var(--color-border);
-  font-size: 14px;
+  font-size: 16px;
   line-height: 18px;
   font-weight: 500;
   color: var(--color-green);
 }
 
-/* Mobile: two cards per row, so draw the phone smaller (overrides the inline height) */
+/* ---------- Mobile: 2 cards per row, so every phone is drawn 18% smaller.
+   calc() keeps the differences between the five pictures intact. ---------- */
 @media (max-width: 700px) {
   .product-card__image {
-    height: 170px !important;
+    height: calc(var(--image-height) * 0.82);
+  }
+}
+
+/* =============================================================================
+   Keyframes
+   ============================================================================= */
+
+/* Badge: grows 15% and settles back */
+@keyframes badge-pop {
+  0% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(1.15);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Picture area: a quick squeeze-and-release when a card becomes selected */
+@keyframes select-pop {
+  0% {
+    transform: scale(0.97);
+  }
+  60% {
+    transform: scale(1.02);
+  }
+  100% {
+    transform: scale(1);
   }
 }

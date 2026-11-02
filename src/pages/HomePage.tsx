@@ -268,7 +268,8 @@ function HomePage() {
         playStoreBadge={siteContent.playStoreBadge}
         contacts={footerContacts}
         linkGroups={footerGroups}
-      />
+
+/>
     </>
   );
 }

@@ -10,6 +10,16 @@ import type { IconType } from "react-icons"; // the type of any react-icons icon
 // Which form is showing. Only these two words are allowed.
 export type AuthMode = "signin" | "signup";
 
+// ----- User data saved upon registration -------------------------------------
+export interface UserData {
+  firstName?: string;
+  lastName?: string;
+  email?: string;
+  mobile?: string;
+  password?: string;
+  confirmPassword?: string;
+}
+
 // ----- Breadcrumb: Home > Sign in -------------------------------------------
 export interface BreadcrumbEntry {
   id: string;

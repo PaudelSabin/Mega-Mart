@@ -40,21 +40,38 @@ interface AuthFormProps {
   submitLabel: string;
   showRememberMe?: boolean;
   termsLabel?: string;
+  // State for input columns
+  values?: Record<string, string>;
+  onChange?: (id: string, value: string) => void;
+  onSubmit?: () => void;
 }
 
-function AuthForm({ fields, submitLabel, showRememberMe = false, termsLabel }: AuthFormProps) {
-  // Record<string, string> = an object with text keys and text values,
-  // e.g. { email: "a@b.co", password: "..." }
-  const [values, setValues] = useState<Record<string, string>>({});
+function AuthForm({
+  fields,
+  submitLabel,
+  showRememberMe = false,
+  termsLabel,
+  values,
+  onChange,
+  onSubmit,
+}: AuthFormProps) {
+  // Fallback local state if values are not controlled externally
+  const [localValues, setLocalValues] = useState<Record<string, string>>({});
+  const formValues = values ?? localValues;
 
   // Store the new text of ONE input
   const handleChange = (id: string, value: string) => {
-    setValues((current) => ({ ...current, [id]: value }));
+    if (onChange) {
+      onChange(id, value);
+    } else {
+      setLocalValues((current) => ({ ...current, [id]: value }));
+    }
   };
 
-  // Not functional: only stops the browser from reloading the page
+  // Submit handler: prevents browser reload and invokes parent onSubmit
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    onSubmit?.();
   };
 
   // Group fields into rows: consecutive half fields share a row, others sit alone
@@ -80,18 +97,30 @@ function AuthForm({ fields, submitLabel, showRememberMe = false, termsLabel }: A
         row.length === 2 ? (
           // Two half-width fields side by side
           <div className="auth-form__row" key={row[0].id + row[1].id}>
-            {row.map((field) => (
-              <TextField
-                key={field.id}
-                id={field.id}
-                label={field.label}
-                type={field.type === "password" ? "text" : field.type}
-                placeholder={field.placeholder}
-                autoComplete={field.autoComplete}
-                value={values[field.id] ?? ""}
-                onChange={(value) => handleChange(field.id, value)}
-              />
-            ))}
+            {row.map((field) =>
+              field.type === "password" ? (
+                <PasswordField
+                  key={field.id}
+                  id={field.id}
+                  label={field.label}
+                  placeholder={field.placeholder}
+                  autoComplete={field.autoComplete}
+                  value={formValues[field.id] ?? ""}
+                  onChange={(value) => handleChange(field.id, value)}
+                />
+              ) : (
+                <TextField
+                  key={field.id}
+                  id={field.id}
+                  label={field.label}
+                  type={field.type}
+                  placeholder={field.placeholder}
+                  autoComplete={field.autoComplete}
+                  value={formValues[field.id] ?? ""}
+                  onChange={(value) => handleChange(field.id, value)}
+                />
+              ),
+            )}
           </div>
         ) : row[0].type === "password" ? (
           <PasswordField
@@ -100,7 +129,7 @@ function AuthForm({ fields, submitLabel, showRememberMe = false, termsLabel }: A
             label={row[0].label}
             placeholder={row[0].placeholder}
             autoComplete={row[0].autoComplete}
-            value={values[row[0].id] ?? ""}
+            value={formValues[row[0].id] ?? ""}
             onChange={(value) => handleChange(row[0].id, value)}
           />
         ) : (
@@ -111,7 +140,7 @@ function AuthForm({ fields, submitLabel, showRememberMe = false, termsLabel }: A
             type={row[0].type}
             placeholder={row[0].placeholder}
             autoComplete={row[0].autoComplete}
-            value={values[row[0].id] ?? ""}
+            value={formValues[row[0].id] ?? ""}
             onChange={(value) => handleChange(row[0].id, value)}
           />
         ),

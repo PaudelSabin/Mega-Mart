@@ -25,9 +25,11 @@ interface HeaderProps {
   searchPlaceholder: string;
   // Optional. Called with the page to show: "home" (logo) or "signin" (Sign Up/Sign In)
   onNavigate?: (page: Page) => void;
+  // Optional. The name of the registered / logged in user to display
+  userName?: string;
 }
 
-function Header({ logo, searchPlaceholder, onNavigate }: HeaderProps) {
+function Header({ logo, searchPlaceholder, onNavigate, userName }: HeaderProps) {
   return (
     <header className="header">
       <div className="container header__inner">
@@ -63,7 +65,9 @@ function Header({ logo, searchPlaceholder, onNavigate }: HeaderProps) {
             onClick={() => onNavigate?.("signin")}
           >
             <RiUserLine className="header__action-icon" />
-            <span className="header__action-text">Sign Up/Sign In</span>
+            <span className="header__action-text">
+              {userName ? userName : "Sign Up/Sign In"}
+            </span>
           </button>
 
           <span className="header__divider" />

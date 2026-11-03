@@ -126,9 +126,11 @@ function useScrollReveal() {
 interface HomePageProps {
   // Called with the name of the page to show (the Header uses it)
   onNavigate: (page: Page) => void;
+  // Optional name of the registered user
+  userName?: string;
 }
 
-function HomePage({ onNavigate }: HomePageProps) {
+function HomePage({ onNavigate, userName }: HomePageProps) {
   // ----- STATE: what is currently selected on the page -----------------------
   // useState(x) creates a value that starts as x and a function to change it.
   // When the function is called, React draws the page again.
@@ -153,6 +155,7 @@ function HomePage({ onNavigate }: HomePageProps) {
         logo={siteContent.headerLogo}
         searchPlaceholder={siteContent.searchPlaceholder}
         onNavigate={onNavigate}
+        userName={userName}
       />
       <CategoryNav pills={categoryPills} defaultActive={categoryPills[0].id} />
 

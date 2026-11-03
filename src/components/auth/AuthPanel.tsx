@@ -47,6 +47,12 @@ interface AuthPanelProps {
   secureNote: string;
   defaultMode?: AuthMode;
   onModeChange?: (mode: AuthMode) => void;
+  signInValues: Record<string, string>;
+  signUpValues: Record<string, string>;
+  onSignInChange: (id: string, value: string) => void;
+  onSignUpChange: (id: string, value: string) => void;
+  onSignInSubmit: () => void;
+  onSignUpSubmit: () => void;
 }
 
 function AuthPanel({
@@ -56,6 +62,12 @@ function AuthPanel({
   secureNote,
   defaultMode = "signin",
   onModeChange,
+  signInValues,
+  signUpValues,
+  onSignInChange,
+  onSignUpChange,
+  onSignInSubmit,
+  onSignUpSubmit,
 }: AuthPanelProps) {
   const [mode, setMode] = useState<AuthMode>(defaultMode);
   const current = copy[mode];
@@ -66,6 +78,8 @@ function AuthPanel({
     setMode(next);
     onModeChange?.(next);
   };
+
+  const isSignIn = mode === "signin";
 
   return (
     <section className="auth-panel">
@@ -86,8 +100,11 @@ function AuthPanel({
         <AuthForm
           key={mode}
           fields={fields[mode]}
+          values={isSignIn ? signInValues : signUpValues}
+          onChange={isSignIn ? onSignInChange : onSignUpChange}
+          onSubmit={isSignIn ? onSignInSubmit : onSignUpSubmit}
           submitLabel={current.submitLabel}
-          showRememberMe={mode === "signin"}
+          showRememberMe={isSignIn}
           termsLabel={current.termsLabel}
         />
 

@@ -51,9 +51,27 @@ import type { AuthMode } from "../types/authTypes";
 interface SignInPageProps {
   // Called with the name of the page to show ("home" or "signin")
   onNavigate: (page: Page) => void;
+  // User name to display in the header
+  userName?: string;
+  // Field values for both modes kept in state
+  signInValues: Record<string, string>;
+  signUpValues: Record<string, string>;
+  onSignInChange: (id: string, value: string) => void;
+  onSignUpChange: (id: string, value: string) => void;
+  onSignInSubmit: () => void;
+  onSignUpSubmit: () => void;
 }
 
-function SignInPage({ onNavigate }: SignInPageProps) {
+function SignInPage({
+  onNavigate,
+  userName,
+  signInValues,
+  signUpValues,
+  onSignInChange,
+  onSignUpChange,
+  onSignInSubmit,
+  onSignUpSubmit,
+}: SignInPageProps) {
   const [authMode, setAuthMode] = useState<AuthMode>("signin");
 
   return (
@@ -63,6 +81,7 @@ function SignInPage({ onNavigate }: SignInPageProps) {
         logo={siteContent.headerLogo}
         searchPlaceholder={siteContent.searchPlaceholder}
         onNavigate={onNavigate}
+        userName={userName}
       />
       <CategoryNav pills={categoryPills} defaultActive={categoryPills[0].id} />
 
@@ -90,6 +109,12 @@ function SignInPage({ onNavigate }: SignInPageProps) {
             secureNote={secureNote}
             defaultMode={authMode}
             onModeChange={setAuthMode}
+            signInValues={signInValues}
+            signUpValues={signUpValues}
+            onSignInChange={onSignInChange}
+            onSignUpChange={onSignUpChange}
+            onSignInSubmit={onSignInSubmit}
+            onSignUpSubmit={onSignUpSubmit}
           />
         </div>
       </main>

@@ -19,10 +19,14 @@
  * so the text typed into the other form does not leak across.
  *
  * Props: all the texts and field lists come from src/data/signInData.ts
- *  - tabs:       the two tabs
- *  - copy:       headings, button text and switch text for each mode
- *  - fields:     the inputs of each mode
- *  - secureNote: the line with the shield at the bottom
+ *  - tabs:         the two tabs
+ *  - copy:         headings, button text, switch text and optional terms label
+ *                  for each mode
+ *  - fields:       the inputs of each mode
+ *  - secureNote:   the line with the shield at the bottom
+ *  - defaultMode:  which tab to start on ("signin" or "signup")
+ *  - onModeChange: optional. Called whenever the mode changes, so the parent
+ *                  (SignInPage) can update the breadcrumb
  */
 import { useState } from "react";
 import { RiShieldCheckLine } from "react-icons/ri";
@@ -42,6 +46,7 @@ interface AuthPanelProps {
   fields: Record<AuthMode, FormFieldEntry[]>;
   secureNote: string;
   defaultMode?: AuthMode;
+  onModeChange?: (mode: AuthMode) => void;
 }
 
 function AuthPanel({
@@ -50,10 +55,17 @@ function AuthPanel({
   fields,
   secureNote,
   defaultMode = "signin",
+  onModeChange,
 }: AuthPanelProps) {
   const [mode, setMode] = useState<AuthMode>(defaultMode);
   const current = copy[mode];
   const otherMode: AuthMode = mode === "signin" ? "signup" : "signin";
+
+  // Change the mode locally and tell the parent too
+  const changeMode = (next: AuthMode) => {
+    setMode(next);
+    onModeChange?.(next);
+  };
 
   return (
     <section className="auth-panel">
@@ -61,7 +73,7 @@ function AuthPanel({
       <p className="auth-panel__subtitle">{current.subtitle}</p>
 
       <div className="auth-panel__tabs">
-        <Tabs tabs={tabs} activeId={mode} onChange={setMode} idPrefix="auth" />
+        <Tabs tabs={tabs} activeId={mode} onChange={changeMode} idPrefix="auth" />
       </div>
 
       {/* The area the tabs control (linked with aria-controls / aria-labelledby) */}
@@ -76,6 +88,7 @@ function AuthPanel({
           fields={fields[mode]}
           submitLabel={current.submitLabel}
           showRememberMe={mode === "signin"}
+          termsLabel={current.termsLabel}
         />
 
         <p className="auth-panel__switch">
@@ -83,7 +96,7 @@ function AuthPanel({
           <button
             type="button"
             className="auth-panel__switch-link"
-            onClick={() => setMode(otherMode)}
+            onClick={() => changeMode(otherMode)}
           >
             {current.switchLabel}
           </button>

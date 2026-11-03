@@ -13,7 +13,12 @@
  *   The shared page frame (top bar, header, pills) uses the SAME data as the home
  *   page (src/data/homeData.ts). The content that is only on this page
  *   lives in src/data/signInData.ts.
+ *
+ *   STATE: "authMode" is "signin" or "signup". The breadcrumb reads it to show
+ *   "Sign in" or "Signup". AuthPanel receives it as its starting mode AND a
+ *   callback to keep SignInPage in sync when the user clicks the tabs.
  */
+import { useState } from "react";
 import TopBar from "../components/layout/TopBar";
 import Header from "../components/layout/Header";
 import CategoryNav from "../components/layout/CategoryNav";
@@ -36,10 +41,12 @@ import {
   promoFeatures,
   secureNote,
   signInBreadcrumb,
+  signUpBreadcrumb,
 } from "../data/signInData";
 
 import "./SignInPage.css";
 import type { Page } from "../types/pageTypes";
+import type { AuthMode } from "../types/authTypes";
 
 interface SignInPageProps {
   // Called with the name of the page to show ("home" or "signin")
@@ -47,6 +54,8 @@ interface SignInPageProps {
 }
 
 function SignInPage({ onNavigate }: SignInPageProps) {
+  const [authMode, setAuthMode] = useState<AuthMode>("signin");
+
   return (
     <>
       <TopBar welcomeText={siteContent.welcomeText} items={topBarItems} />
@@ -59,7 +68,7 @@ function SignInPage({ onNavigate }: SignInPageProps) {
 
       <main className="auth-page container">
         <Breadcrumb
-          items={signInBreadcrumb}
+          items={authMode === "signup" ? signUpBreadcrumb : signInBreadcrumb}
           onNavigate={(target) => onNavigate(target as Page)}
         />
 
@@ -79,6 +88,8 @@ function SignInPage({ onNavigate }: SignInPageProps) {
             copy={authCopy}
             fields={authFields}
             secureNote={secureNote}
+            defaultMode={authMode}
+            onModeChange={setAuthMode}
           />
         </div>
       </main>

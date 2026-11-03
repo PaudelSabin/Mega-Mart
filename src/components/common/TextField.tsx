@@ -25,7 +25,7 @@ interface TextFieldProps {
   label: string;
   value: string;
   onChange: (value: string) => void;
-  type?: "text" | "email" | "password";
+  type?: "text" | "email" | "password" | "tel";
   placeholder?: string;
   autoComplete?: string;
   error?: string;

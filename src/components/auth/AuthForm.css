@@ -5,6 +5,13 @@
   gap: 20px;
 }
 
+/* Two half-width fields side by side (e.g. First name + Last name) */
+.auth-form__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
 /* "Remember me" on the left, "Forgot password?" on the right */
 .auth-form__options {
   display: flex;
@@ -27,4 +34,16 @@
 .auth-form__forgot:hover,
 .auth-form__forgot:focus-visible {
   background-size: 100% 1px;
+}
+
+/* "I agree to Terms & Conditions" checkbox */
+.auth-form__terms {
+  margin-top: -4px;
+}
+
+/* On narrow screens, the name fields stack */
+@media (max-width: 480px) {
+  .auth-form__row {
+    grid-template-columns: 1fr;
+  }
 }

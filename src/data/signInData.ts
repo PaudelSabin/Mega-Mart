@@ -27,6 +27,11 @@ export const signInBreadcrumb: BreadcrumbEntry[] = [
   { id: "signin", label: "Sign in" },
 ];
 
+export const signUpBreadcrumb: BreadcrumbEntry[] = [
+  { id: "home", label: "Home", target: "home" },
+  { id: "signup", label: "Signup" },
+];
+
 // ----- Dark promo card on the left ----------------------------------------------
 export const promoContent = {
   eyebrow: "More with MegaMart",
@@ -74,10 +79,12 @@ export const authCopy: Record<AuthMode, AuthCopy> = {
   },
   signup: {
     heading: "Create your account",
-    subtitle: "Join MegaMart to save your details and check out faster.",
+    subtitle: "Join MegaMart. Your next great deal is waiting.",
     submitLabel: "Create account",
     switchPrompt: "Already have an account?",
     switchLabel: "Sign in",
+    termsLabel:
+      "I agree to the Terms & Conditions and Privacy Policy.",
   },
 };
 
@@ -101,24 +108,47 @@ export const authFields: Record<AuthMode, FormFieldEntry[]> = {
   ],
   signup: [
     {
-      id: "name",
-      label: "Full name",
+      id: "firstName",
+      label: "First name",
       type: "text",
-      placeholder: "Enter your full name",
-      autoComplete: "name",
+      placeholder: "First name",
+      autoComplete: "given-name",
+      half: true,
+    },
+    {
+      id: "lastName",
+      label: "Last name",
+      type: "text",
+      placeholder: "Last name",
+      autoComplete: "family-name",
+      half: true,
     },
     {
       id: "email",
       label: "Email address",
       type: "email",
-      placeholder: "Enter your email address",
+      placeholder: "eg. your@email.com",
       autoComplete: "email",
+    },
+    {
+      id: "mobile",
+      label: "Mobile number",
+      type: "tel",
+      placeholder: "+91 Enter your mobile number",
+      autoComplete: "tel",
     },
     {
       id: "password",
       label: "Password",
       type: "password",
-      placeholder: "Create a password",
+      placeholder: "Enter your password",
+      autoComplete: "new-password",
+    },
+    {
+      id: "confirmPassword",
+      label: "Confirm password",
+      type: "password",
+      placeholder: "Re-enter your password",
       autoComplete: "new-password",
     },
   ],

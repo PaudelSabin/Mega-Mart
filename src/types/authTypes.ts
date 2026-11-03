@@ -27,9 +27,10 @@ export interface TabEntry<T extends string = string> {
 export interface FormFieldEntry {
   id: string;
   label: string;
-  type: "text" | "email" | "password";
+  type: "text" | "email" | "password" | "tel";
   placeholder: string;
   autoComplete: string;
+  half?: boolean; // true = takes half the row (sits side by side with the next half field)
 }
 
 // ----- The words around a form (heading, button, switch link ...) -------------
@@ -39,6 +40,7 @@ export interface AuthCopy {
   submitLabel: string;
   switchPrompt: string; // "New to MegaMart?"
   switchLabel: string; // "Sign up"
+  termsLabel?: string; // shown as a checkbox above the button (sign-up only)
 }
 
 // ----- A feature row in the dark promo card -----------------------------------

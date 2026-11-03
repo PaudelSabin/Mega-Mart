@@ -1,0 +1,76 @@
+/* The form column: never wider than 452px (Figma), centred in its half of the page */
+.auth-panel {
+  width: 100%;
+  max-width: 452px;
+  margin: 0 auto;
+}
+
+.auth-panel__heading {
+  font-size: 28px;
+  line-height: 34px;
+  font-weight: 700;
+  color: var(--color-dark);
+}
+
+.auth-panel__subtitle {
+  margin-top: 8px;
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--color-text);
+}
+
+.auth-panel__tabs {
+  margin-top: 28px;
+}
+
+.auth-panel__body {
+  margin-top: 28px;
+}
+
+/* "New to MegaMart? Sign up" under the button */
+.auth-panel__switch {
+  margin-top: 24px;
+  text-align: center;
+  font-size: 14px;
+  line-height: 18px;
+  color: var(--color-text);
+}
+
+.auth-panel__switch-link {
+  padding: 0;
+  border: 0;
+  background: none;
+  font-size: inherit;
+  font-weight: 700;
+  color: var(--color-primary);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* A thin line, then the shield + secure message, centred */
+.auth-panel__secure {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 28px;
+  padding-top: 24px;
+  border-top: 1px solid var(--color-border);
+  font-size: 13px;
+  line-height: 18px;
+  color: var(--color-text);
+}
+
+.auth-panel__secure svg {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  color: var(--color-primary);
+}
+
+@media (max-width: 700px) {
+  .auth-panel__heading {
+    font-size: 24px;
+    line-height: 30px;
+  }
+}

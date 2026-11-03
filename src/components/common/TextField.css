@@ -1,0 +1,74 @@
+.text-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.text-field__label {
+  font-size: 14px;
+  line-height: 18px;
+  font-weight: 600;
+  color: var(--color-dark);
+}
+
+/* 48px tall box with a 1px grey border (the input itself has no border) */
+.text-field__control {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 48px;
+  padding: 0 16px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background: var(--color-white);
+  /* EFFECT: border and ring change smoothly */
+  transition: border-color 0.25s, box-shadow 0.25s;
+}
+
+/* EFFECT (hover): the border darkens a little */
+@media (hover: hover) {
+  .text-field__control:hover {
+    border-color: var(--color-divider);
+  }
+}
+
+/* EFFECT (focus): blue border + soft ring. :focus-within = the box OR anything
+   inside it has focus. */
+.text-field__control:focus-within {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(0, 142, 204, 0.15);
+}
+
+.text-field__control--error,
+.text-field__control--error:hover {
+  border-color: var(--color-error);
+}
+
+.text-field__control--error:focus-within {
+  border-color: var(--color-error);
+  box-shadow: 0 0 0 3px rgba(209, 52, 56, 0.15);
+}
+
+.text-field__input {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  outline: 0; /* the ring is drawn on the whole box instead (see :focus-within) */
+  background: transparent;
+  font-size: 14px;
+  line-height: 18px;
+  color: var(--color-dark);
+}
+
+.text-field__input::placeholder {
+  color: #8a8a8a;
+  opacity: 1; /* some browsers fade placeholders by default */
+}
+
+.text-field__error {
+  font-size: 13px;
+  line-height: 18px;
+  color: var(--color-error);
+}

@@ -1,0 +1,36 @@
+/* Breadcrumb: 14px text, grey links, the current page in brand blue */
+.breadcrumb__list {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 14px;
+  line-height: 18px;
+}
+
+.breadcrumb__link {
+  color: var(--color-text);
+  transition: color 0.2s;
+}
+
+.breadcrumb__link:hover {
+  color: var(--color-primary);
+}
+
+.breadcrumb__separator {
+  display: flex;
+  color: var(--color-text);
+}
+
+.breadcrumb__separator svg {
+  width: 16px;
+  height: 16px;
+}
+
+.breadcrumb__current {
+  font-weight: 600;
+  color: var(--color-primary);
+}

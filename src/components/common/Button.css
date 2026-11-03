@@ -1,0 +1,53 @@
+/* Button: 52px tall, 8px radius, brand blue with white bold text */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 52px;
+  padding: 0 28px;
+  border: 0;
+  border-radius: 8px;
+  background: var(--color-primary);
+  color: var(--color-white);
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 600;
+  cursor: pointer;
+  /* EFFECT: lift, shadow and colour change smoothly */
+  transition: transform 0.25s var(--ease-out), box-shadow 0.25s, background 0.25s;
+}
+
+.button--full {
+  width: 100%;
+}
+
+.button__icon {
+  display: flex;
+  width: 20px;
+  height: 20px;
+  transition: transform 0.25s var(--ease-out);
+}
+
+.button__icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* EFFECT (hover): lifts 2px, deeper shadow, the arrow slides right */
+@media (hover: hover) {
+  .button:hover {
+    background: #007cb3;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0, 142, 204, 0.3);
+  }
+
+  .button:hover .button__icon {
+    transform: translateX(4px);
+  }
+}
+
+/* EFFECT (press): sinks back */
+.button:active {
+  transform: translateY(0) scale(0.98);
+}

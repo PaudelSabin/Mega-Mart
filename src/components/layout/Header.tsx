@@ -18,13 +18,16 @@
 import SearchBar from "../common/SearchBar";
 import "./Header.css";
 import { RiMenu2Line, RiShoppingCartLine, RiUserLine } from "react-icons/ri";
+import type { Page } from "../../types/pageTypes";
 
 interface HeaderProps {
   logo: string;
   searchPlaceholder: string;
+  // Optional. Called with the page to show: "home" (logo) or "signin" (Sign Up/Sign In)
+  onNavigate?: (page: Page) => void;
 }
 
-function Header({ logo, searchPlaceholder }: HeaderProps) {
+function Header({ logo, searchPlaceholder, onNavigate }: HeaderProps) {
   return (
     <header className="header">
       <div className="container header__inner">
@@ -33,7 +36,18 @@ function Header({ logo, searchPlaceholder }: HeaderProps) {
           <button className="header__menu" type="button" aria-label="Open menu">
             <RiMenu2Line size={26} />
           </button>
-          <img className="header__logo" src={logo} alt="MegaMart" />
+          {/* The logo goes back to the home page. preventDefault stops the
+              browser from following href="#" (we change page with state instead). */}
+          <a
+            href="#"
+            aria-label="MegaMart home"
+            onClick={(event) => {
+              event.preventDefault();
+              onNavigate?.("home");
+            }}
+          >
+            <img className="header__logo" src={logo} alt="MegaMart" />
+          </a>
         </div>
 
         {/* ----- Middle: reusable search bar ----- */}
@@ -43,7 +57,11 @@ function Header({ logo, searchPlaceholder }: HeaderProps) {
 
         {/* ----- Right: sign in + cart ----- */}
         <div className="header__actions">
-          <button className="header__action" type="button">
+          <button
+            className="header__action"
+            type="button"
+            onClick={() => onNavigate?.("signin")}
+          >
             <RiUserLine className="header__action-icon" />
             <span className="header__action-text">Sign Up/Sign In</span>
           </button>

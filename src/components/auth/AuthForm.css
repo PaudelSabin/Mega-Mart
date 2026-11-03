@@ -1,0 +1,30 @@
+/* Inputs 20px apart; the button sits a little further down */
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* "Remember me" on the left, "Forgot password?" on the right */
+.auth-form__options {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: -4px; /* pulls it a bit closer to the password box */
+}
+
+.auth-form__forgot {
+  font-size: 14px;
+  line-height: 18px;
+  font-weight: 600;
+  color: var(--color-primary);
+  background: linear-gradient(currentColor, currentColor) left bottom / 0 1px no-repeat;
+  transition: background-size 0.3s var(--ease-out);
+}
+
+/* EFFECT (hover / focus): an underline grows from left to right */
+.auth-form__forgot:hover,
+.auth-form__forgot:focus-visible {
+  background-size: 100% 1px;
+}

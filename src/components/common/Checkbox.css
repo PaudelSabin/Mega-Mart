@@ -1,0 +1,58 @@
+.checkbox {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  user-select: none;
+}
+
+/* The real input stays in the page (for keyboards and screen readers) but is invisible */
+.checkbox__input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  opacity: 0;
+}
+
+/* The drawn 18px square */
+.checkbox__box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border: 1px solid var(--color-divider);
+  border-radius: 4px;
+  background: var(--color-white);
+  color: var(--color-white);
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.checkbox__box svg {
+  width: 14px;
+  height: 14px;
+  scale: 0;
+  transition: scale 0.2s var(--ease-out); /* EFFECT: the tick pops in */
+}
+
+.checkbox__input:checked + .checkbox__box {
+  border-color: var(--color-primary);
+  background: var(--color-primary);
+}
+
+.checkbox__input:checked + .checkbox__box svg {
+  scale: 1;
+}
+
+/* Keyboard focus: the blue ring appears on the drawn square */
+.checkbox__input:focus-visible + .checkbox__box {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
+}
+
+.checkbox__label {
+  font-size: 14px;
+  line-height: 18px;
+  color: var(--color-text);
+}

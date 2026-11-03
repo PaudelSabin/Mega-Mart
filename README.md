@@ -79,7 +79,7 @@ ecommerce-frontend/
 ├── tsconfig*.json
 └── src/
     ├── main.tsx               # entry point: mounts <App /> and loads index.css
-    ├── App.tsx                # renders the one page (HomePage)
+    ├── App.tsx                # keeps the current page in state: HomePage or SignInPage
     ├── index.css              # global: font-face, colour variables, reset, .container
     │
     ├── assets/
@@ -92,12 +92,18 @@ ecommerce-frontend/
     │   │   ├── SearchBar
     │   │   ├── SectionHeader
     │   │   ├── CarouselArrow
-    │   │   └── DotIndicator
+    │   │   ├── DotIndicator
+    │   │   ├── Breadcrumb, Button, Checkbox, Tabs       (sign-in page)
+    │   │   └── TextField, PasswordField                 (sign-in page)
     │   ├── layout/            # the page frame
     │   │   ├── TopBar, TopBarItem
     │   │   ├── Header
     │   │   ├── CategoryNav, NavPill
-    │   │   └── Footer, FooterLinkList, ContactItem
+    │   │   ├── Footer, FooterLinkList, ContactItem
+    │   │   └── CompactFooter                            (sign-in page)
+    │   ├── auth/              # sign-in page sections
+    │   │   ├── AuthPromoCard, FeatureItem
+    │   │   └── AuthPanel, AuthForm
     │   └── ecommerce/         # shop-specific cards and banners
     │       ├── HeroBanner
     │       ├── ProductCard
@@ -106,14 +112,19 @@ ecommerce-frontend/
     │       └── EssentialCard
     │
     ├── data/
-    │   └── homeData.ts        # ALL the page content as arrays/objects (phones, categories ...)
+    │   ├── homeData.ts        # ALL the home page content as arrays/objects
+    │   └── signInData.ts      # ALL the sign-in page content
     │
     ├── pages/
     │   ├── HomePage.tsx       # loops over the data with .map() and builds the components
-    │   └── HomePage.css       # spacing between sections and the card grids
+    │   ├── HomePage.css       # spacing between sections and the card grids
+    │   ├── SignInPage.tsx     # re-uses TopBar / Header / CategoryNav + the auth components
+    │   └── SignInPage.css     # two-column layout of the sign-in page
     │
     └── types/
-        └── homeTypes.ts       # the TypeScript shape of every array in homeData.ts
+        ├── homeTypes.ts       # the TypeScript shape of every array in homeData.ts
+        ├── authTypes.ts       # the shapes used by the sign-in page
+        └── pageTypes.ts       # the Page type: "home" | "signin"
 ```
 
 Every component has **its own `.tsx` file and its own `.css` file** next to it
@@ -132,12 +143,13 @@ page decides *what* to show, the component only decides *how* to show it.
 | --- | --- | --- |
 | `TopBar` | `welcomeText`, `items` (array, mapped to `TopBarItem`) | once |
 | `TopBarItem` | `icon`, `label`, `highlight?` | once per item |
-| `Header` | `logo`, `searchPlaceholder` | once |
+| `Header` | `logo`, `searchPlaceholder`, `onNavigate?` (logo goes home, Sign Up/Sign In opens the sign-in page) | once per page |
 | `CategoryNav` | `pills` (array, mapped to `NavPill`), `defaultActive` | once |
 | `NavPill` | `label`, `active?`, `onClick?` | once per pill |
 | `Footer` | `logo`, `appStoreBadge`, `playStoreBadge`, `contacts` (array), `linkGroups` (array of arrays) | once |
 | `FooterLinkList` | `heading`, `children` (the `<li>` links) | once per group |
 | `ContactItem` | `icon`, `label`, `value` | once per contact |
+| `CompactFooter` | `logo`, `tagline`, `contactHeading`, `contacts` (array), `linkGroups` (array of arrays), `copyright` | sign-in page |
 
 ### Common
 
@@ -147,6 +159,21 @@ page decides *what* to show, the component only decides *how* to show it.
 | `SectionHeader` | `title`, `highlight` | 4 times |
 | `CarouselArrow` | `direction` (`"left"` or `"right"`), `onClick?` | 2 times |
 | `DotIndicator` | `activeIndex` (0 to 6), `onSelect?` | 2 times |
+| `Breadcrumb` | `items` (array), `onNavigate?` | sign-in page |
+| `Button` | `children`, `icon?`, `type?`, `fullWidth?`, `onClick?` | sign-in page |
+| `TextField` | `id`, `label`, `value`, `onChange`, `type?`, `placeholder?`, `autoComplete?`, `error?`, `trailing?` | once per input |
+| `PasswordField` | same as `TextField` minus `type` / `trailing` (it adds the show / hide button) | once per password input |
+| `Checkbox` | `id`, `label`, `checked`, `onChange` | sign-in page |
+| `Tabs` | `tabs` (array), `activeId`, `onChange`, `idPrefix` | sign-in page |
+
+### Sign-in page (`components/auth`)
+
+| Component | Props | Used |
+| --- | --- | --- |
+| `AuthPromoCard` | `eyebrow`, `title`, `text`, `dealTitle`, `dealOffer`, `image`, `features` (array, mapped to `FeatureItem`) | once |
+| `FeatureItem` | `icon`, `title`, `description` | once per feature |
+| `AuthPanel` | `tabs`, `copy`, `fields`, `secureNote`, `defaultMode?` (keeps the Sign in / Sign up mode in state) | once |
+| `AuthForm` | `fields` (array, mapped to `TextField` / `PasswordField`), `submitLabel`, `showRememberMe?` | once |
 
 ### Ecommerce
 
@@ -349,8 +376,17 @@ lift. Hover effects are wrapped in `@media (hover: hover)` so they do not get
 
 ## Notes and known limitations
 
-- Links ( "View All", the footer links ) and the menu / sign-in / cart buttons
-  do not lead anywhere yet. There is no real cart, search results or routing.
+- Links ( "View All", the footer links ) and the menu / cart buttons do not lead
+  anywhere yet. There is no real cart or search results.
+- There is no router. `App.tsx` keeps the current page ("home" or "signin") in
+  `useState`; the Header logo, the "Sign Up/Sign In" button and the breadcrumb
+  change it. The address bar never changes.
+- The sign-in page is a design only. "Remember me" is a fixed, ticked box,
+  "Forgot password?" does nothing, and the submit button does nothing (no
+  validation, no request). Typing, the show / hide password button and the
+  Sign in / Sign up tabs work (all with `useState`).
+- The sign-in page uses `CompactFooter` instead of `Footer` because its footer
+  has no app-store badges.
 - `logo-white.svg` (footer logo) is a simple stand-in. Replace it with the real
   export from Figma and keep the same file name.
 - The two small circles that rise from the bottom of the hero banner are drawn

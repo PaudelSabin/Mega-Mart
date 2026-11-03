@@ -1,0 +1,37 @@
+/* Icon tile (40px, rounded) + two lines of text, 16px apart. Made for a DARK background. */
+.feature-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.feature-item__icon {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  background: #2c3454; /* same navy as the hero banner shapes */
+  color: var(--color-white);
+}
+
+.feature-item__icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.feature-item__title {
+  font-size: 14px;
+  line-height: 18px;
+  font-weight: 600;
+  color: var(--color-white);
+}
+
+.feature-item__description {
+  margin-top: 2px;
+  font-size: 13px;
+  line-height: 18px;
+  color: rgba(255, 255, 255, 0.7);
+}

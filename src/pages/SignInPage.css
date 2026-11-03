@@ -1,0 +1,45 @@
+/* =========================================================
+   SignInPage layout: breadcrumb, then the promo card and the form side by side
+   ========================================================= */
+
+/* Breadcrumb sits 20px under the category nav; 64px of space above the footer */
+.auth-page {
+  padding-top: 20px;
+  padding-bottom: 64px;
+}
+
+/* Two columns: a fixed 512px promo card | the rest (the form is centred in it).
+   align-items: center keeps the form level with the middle of the card. */
+.auth-page__layout {
+  display: grid;
+  grid-template-columns: 512px minmax(0, 1fr);
+  column-gap: 64px;
+  align-items: center;
+  margin-top: 20px;
+}
+
+/* ---------- Tablet: one column, card on top ---------- */
+@media (max-width: 1000px) {
+  .auth-page__layout {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 48px;
+  }
+
+  /* The card keeps a readable width instead of stretching across the page */
+  .auth-page__layout > .promo-card {
+    max-width: 560px;
+    width: 100%;
+    margin: 0 auto;
+  }
+}
+
+/* ---------- Mobile ---------- */
+@media (max-width: 700px) {
+  .auth-page {
+    padding-bottom: 48px;
+  }
+
+  .auth-page__layout {
+    row-gap: 32px;
+  }
+}

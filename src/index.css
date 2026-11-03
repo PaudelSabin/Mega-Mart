@@ -55,6 +55,7 @@
   --color-border: #ededed;
   --color-dark: #181818;
   --color-green: #1a8f2d;
+  --color-error: #d13438; /* form error messages and red input borders */
 
   /* Motion: one easing curve shared by every effect so the page feels consistent.
      It starts fast and slows down smoothly at the end. */

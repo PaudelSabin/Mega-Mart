@@ -1,0 +1,96 @@
+/* Full-width brand-blue block, shorter than the home page footer */
+.compact-footer {
+  background: var(--color-primary);
+  color: var(--color-white);
+}
+
+/* Brand column | contact column | one column per link group */
+.compact-footer__top {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  column-gap: 96px;
+  align-items: start;
+  padding-top: 48px;
+  padding-bottom: 40px;
+}
+
+.compact-footer__logo {
+  height: 36px;
+  width: auto;
+}
+
+.compact-footer__tagline {
+  margin-top: 16px;
+  font-size: 14px;
+  line-height: 20px;
+  opacity: 0.9;
+}
+
+.compact-footer__heading {
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 600;
+}
+
+.compact-footer__list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 16px;
+  font-size: 14px;
+  line-height: 18px;
+}
+
+/* The link list is two columns: About Us / FAQ | Terms / Privacy */
+.compact-footer__list--columns {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-rows: repeat(2, auto);
+  column-gap: 40px;
+  row-gap: 8px;
+}
+
+/* EFFECT (hover): an underline GROWS from left to right under the link */
+.compact-footer__link {
+  background: linear-gradient(currentColor, currentColor) left bottom / 0 1px no-repeat;
+  transition: background-size 0.3s var(--ease-out);
+}
+
+.compact-footer__link:hover,
+.compact-footer__link:focus-visible {
+  background-size: 100% 1px;
+}
+
+/* Thin white line, then the copyright centred */
+.compact-footer__bottom {
+  padding: 20px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.35);
+  text-align: center;
+  font-size: 14px;
+  line-height: 18px;
+}
+
+/* ---------- Tablet / mobile: stack the columns ---------- */
+@media (max-width: 900px) {
+  .compact-footer__top {
+    grid-template-columns: 1fr 1fr;
+    row-gap: 32px;
+    column-gap: 40px;
+  }
+
+  .compact-footer__brand {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 600px) {
+  .compact-footer__top {
+    grid-template-columns: 1fr;
+    padding-top: 40px;
+  }
+
+  .compact-footer__list--columns {
+    grid-auto-flow: row;
+    grid-template-rows: none;
+  }
+}

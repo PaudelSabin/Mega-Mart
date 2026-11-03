@@ -1,0 +1,46 @@
+/* A grey line under the whole row; the active tab draws a blue line on top of it */
+.tabs {
+  display: flex;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.tabs__tab {
+  position: relative;
+  flex: 1;
+  padding: 14px 0;
+  border: 0;
+  background: none;
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 500;
+  color: var(--color-text);
+  transition: color 0.25s;
+}
+
+/* The blue underline GROWS from the centre when a tab becomes active */
+.tabs__tab::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px; /* sits on top of the grey line */
+  height: 2px;
+  background: var(--color-primary);
+  transform: scaleX(0);
+  transition: transform 0.3s var(--ease-out);
+}
+
+.tabs__tab--active {
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+.tabs__tab--active::after {
+  transform: scaleX(1);
+}
+
+@media (hover: hover) {
+  .tabs__tab:hover {
+    color: var(--color-primary);
+  }
+}
